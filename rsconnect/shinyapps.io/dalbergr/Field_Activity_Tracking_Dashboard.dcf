@@ -1,0 +1,14 @@
+name: Field_Activity_Tracking_Dashboard
+title: Field_Activity_Tracking_Dashboard
+username:
+account: dalbergr
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5563624
+bundleId: 5888311
+url: https://dalbergr.shinyapps.io/Field_Activity_Tracking_Dashboard/
+when: 1652126332.59146
+lastSyncTime: 1652126332.59146
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .dockerignore

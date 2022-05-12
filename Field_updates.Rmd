@@ -1,0 +1,210 @@
+---
+title: |
+  |
+  |
+  |
+  ![](logo.jpg){width=5in}  
+  Field Activities Updates Report Report
+author: "Dalberg Research"
+date: "Date Generated: `r format(Sys.time(), '%d %B, %Y')`"
+output: pdf_document
+fontsize: 13pt
+classoption: landscape
+header-includes:
+  \usepackage{float}
+  \floatplacement{figure}{H}
+params:
+  printcode: FALSE
+  plot1: NULL
+  plot21: NULL
+  plot22: NULL
+  plot2: NUL L
+  plot23: NULL
+  plot24: NULL
+  plot3: NULL
+  plot5: NULL
+  plot6: NULL
+  plot6_3: NULL
+  plot6_4: NULL
+  plot6_6: NULL
+  plot6_2: NULL
+  plot6_5: NULL
+  plot6_1: NULL
+  plot6_12: NULL
+  cump1: NULL
+  cump2: NULL
+  cump3: NULL
+  trendp1: NULL
+  trendp2: NULL
+  trendp3: NULL
+---
+
+```{r, setup, include=FALSE}
+# set this option in the first code chunk in the document
+knitr::opts_chunk$set(echo = params$printcode)
+```
+
+```{r}
+knitr::opts_chunk$set(warning = FALSE,
+                      cache = TRUE,
+                      results='asis',
+                      fig.align = "center", cache.rebuild = T)
+
+```
+
+\newpage
+
+```{=latex}
+
+\begin{center}
+\textbf{Overview of Field Report Update}\\[20pt]
+\end{center} 
+```
+
+```{r, fig.width=20, fig.height=10, fig.cap="EA Type by Gender of Respondents"}
+if(!is.null(params$plot1))
+  params$plot1()
+```
+
+
+```{r, fig.width=15, fig.height=15, fig.cap="EA Type"}
+if(!is.null(params$plot21))
+  params$plot21()
+```
+
+```{r, fig.height=10,fig.width=20, fig.cap="Age of Respondents"}
+if(!is.null(params$plot22))
+  params$plot22()
+```
+
+
+```{r, fig.height=15,fig.width=15, fig.cap="Gender of Respondents"}
+if(!is.null(params$plot2))
+  params$plot2()
+```
+
+
+```{r, fig.height=10,fig.width=20, fig.cap="Age Breakdown in Urban Areas"}
+if(!is.null(params$plot23))
+  params$plot23()
+```
+
+
+```{r, fig.height=10,fig.width=20, fig.cap="Age Breakdown in Rural Areas"}
+if(!is.null(params$plot24))
+  params$plot24()
+```
+
+```{r, fig.height=10,fig.width=20, fig.cap="Population Pyramid of Respondents"}
+if(!is.null(params$plot3))
+  params$plot3()
+```
+
+
+```{r,fig.height=10,fig.width=20, fig.cap="Relationship with Household Head"}
+if(!is.null(params$plot5))
+  params$plot5()
+```
+
+```{r,fig.height=10,fig.width=20, fig.cap="Highest Level of Education"}
+if(!is.null(params$plot6))
+  params$plot6()
+```
+
+```{r,fig.height=10,fig.width=20, fig.cap="Electricity Sources"}
+if(!is.null(params$plot6_3))
+  params$plot6_3()
+```
+
+```{r,fig.height=10,fig.width=20, fig.cap="Water Sources"}
+if(!is.null(params$plot6_4))
+  params$plot6_4()
+```
+
+```{r,fig.height=10,fig.width=20, fig.cap="Primary Source of Income"}
+if(!is.null(params$plot6_5))
+  params$plot6_5()
+```
+
+```{r,fig.height=10,fig.width=20, fig.cap="Saving Behaviour"}
+if(!is.null(params$plot6_6))
+  params$plot6_6()
+```
+
+```{r,fig.height=10,fig.width=20, fig.cap="Interview Language"}
+if(!is.null(params$plot6_2))
+  params$plot6_2()
+```
+
+\newpage
+
+```{=latex}
+
+\begin{center}
+\textbf{Distribution of Numeric Variables}\\[20pt]
+\end{center} 
+```
+
+```{r,fig.height=15,fig.width=24,fig.cap="Boxplot of Distribution of Numeric variables"}
+if(!is.null(params$plot6_1))
+  params$plot6_1()
+```
+
+```{r,fig.height=15,fig.width=24,fig.cap="Violin Plot of the Distribution of Numeric variables"}
+if(!is.null(params$plot6_12))
+  params$plot6_12()
+```
+
+
+```{=latex}
+
+\begin{center}
+\textbf{Trends of Data Submission}\\[20pt]
+\end{center} 
+```
+
+
+```{r,fig.height=15,fig.width=24, fig.cap="Overall Trend of Data Submission"}
+if(!is.null(params$cump1))
+  params$cump1()
+```
+
+
+
+```{r,fig.height=15,fig.width=24, fig.cap="Trend of Data Submission by EA Type"}
+if(!is.null(params$cump2))
+  params$cump2()
+```
+
+```{r,fig.height=15,fig.width=24, fig.cap="Trend of Data Submission by Gender"}
+if(!is.null(params$cump3))
+  params$cump3()
+```
+
+\newpage
+
+```{=latex}
+
+\begin{center}
+\textbf{Daily Data Submission Updates}\\[20pt]
+\end{center} 
+```
+
+
+```{r,fig.height=15,fig.width=24, fig.cap="Daily Data Submission Update"}
+if(!is.null(params$trendp1))
+  params$trendp1()
+```
+
+
+
+```{r,fig.height=15,fig.width=24, fig.cap="Daily Data Submission Update by EA Type"}
+if(!is.null(params$trendp2))
+  params$trendp2()
+```
+
+```{r,fig.height=15,fig.width=24, fig.cap="Daily Data Submission Update by Gender"}
+if(!is.null(params$trendp3))
+  params$trendp3()
+```
+

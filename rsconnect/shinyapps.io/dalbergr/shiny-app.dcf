@@ -1,0 +1,14 @@
+name: shiny-app
+title: shiny-app
+username:
+account: dalbergr
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5563365
+bundleId: 5534337
+url: https://dalbergr.shinyapps.io/shiny-app/
+when: 1643800122.988
+lastSyncTime: 1643800122.988
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .dockerignore|.env|.RData|Dockerfile|shiny-customized.conf

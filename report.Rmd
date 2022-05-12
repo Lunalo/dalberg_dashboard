@@ -1,0 +1,95 @@
+---
+title: |
+  |
+  |
+  |
+  ![](logo.jpg){width=5in}  
+  Key Performance Indicators Report
+author: "Dalberg Research"
+date: "Date Generated: `r format(Sys.time(), '%d %B, %Y')`"
+output: pdf_document
+fontsize: 14pt
+classoption: landscape
+header-includes:
+  \usepackage{float}
+  \floatplacement{figure}{H}
+params:
+  printcode: FALSE 
+  plot7: NULL
+  plot8: NULL
+  plot9: NULL
+  plot10: NULL
+  plot11: NULL
+  plot12: NULL
+  plot13: NULL
+  plot14: NULL
+  plot15: NULL
+---
+```{r, setup, include=FALSE}
+# set this option in the first code chunk in the document
+knitr::opts_chunk$set(echo = params$printcode)
+```
+
+```{r}
+knitr::opts_chunk$set(warning = FALSE,
+                      cache = TRUE,
+                      results='asis',
+                      fig.align = "center", cache.rebuild = T)
+
+```
+
+\newpage
+
+```{=latex}
+
+\begin{center}
+\textbf{Overview of Key Performance Indicators}\\[20pt]
+\end{center} 
+```
+
+```{r,fig.height=9,fig.width=20,fig.cap="smartphones Ownership by Gender"}
+if(!is.null(params$plot7))
+  params$plot7()
+```
+
+```{r, fig.height = 9,fig.width=20,fig.cap="smartphones Ownership by EA Type"}
+if(!is.null(params$plot10))
+  params$plot10()
+```
+
+
+```{r,figures-side1, fig.height=12,fig.width=7,fig.show="hold", out.width="50%",fig.cap="Bank and Mobile Money accounts Ownership by Gender"}
+par(mar = c(4, 4, .1, .1))
+if(!is.null(params$plot8))
+  params$plot8()
+
+if(!is.null(params$plot9))
+  params$plot9()
+```
+
+
+```{r,figures-side2, fig.height=12,fig.width=7,fig.show="hold", out.width="50%",fig.cap="Bank and Mobile Money Account(s) by EA Type"}
+par(mar = c(4, 4, .1, .1))
+if(!is.null(params$plot11))
+  params$plot11()
+
+if(!is.null(params$plot12))
+  params$plot12()
+```
+
+
+```{r, fig.height=16,fig.width=20,fig.cap="Bank Account(s) by Age"}
+if(!is.null(params$plot13))
+  params$plot13()
+```
+
+```{r, fig.height=20,fig.width=24,fig.cap="Working Smartphone(s) by Age"}
+if(!is.null(params$plot14))
+  params$plot14()
+```
+
+
+```{r,fig.height=16,fig.width=20, fig.cap="Mobile Money Account(s) by Age"}
+if(!is.null(params$plot15))
+  params$plot15()
+```
