@@ -35,7 +35,7 @@ loginpage <- div(id = "loginpage", style = "width: 500px; max-width: 100%; margi
 )
 
 
-readRenviron(".env")
+readRenviron("cred.env")
 
 #Only edit these two lines while  adding users
 username_id <- c(Sys.getenv("USERNAMEONE"), Sys.getenv("USERNAMETWO"), Sys.getenv("USERNAMETHREE"), Sys.getenv("USERNAMEFOUR"))
@@ -51,8 +51,7 @@ login_credentials = data.frame(
 )
 
 
-i_prog <- 1
-tot_step <- 25
+icont<-1
 
 
 about_project <- "<br><br><h2>About the Project</h2><br><br><br><br><p>Dalberg Research provides research and analysis that offers clients 

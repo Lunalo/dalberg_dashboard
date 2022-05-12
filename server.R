@@ -1,4 +1,7 @@
-function(input, output, session){ 
+function(input, output, session){
+  
+  i_prog <- 1
+  tot_step <- 25
   
   login = FALSE
   USER <- reactiveValues(login = login)
@@ -48,7 +51,6 @@ function(input, output, session){
        menuItem(tabName = "SurveyProgress", text = "Survey Progress"),
        menuItem(tabName = "KeySurveyQuestions", text = "Key Survey Questions"),
        menuItem(tabName = "DataQualityControl", text = "Data Quality Control"),
-       menuItem(tabName = "SummaryofOutcome", text = "Summary of outcome"),
        menuItem(tabName = "Dataset", text = "Dataset"),
        menuItem(tabName = "Questionnaire", text = "Questionnaire"),
        menuItem(tabName = "Methodology", text = "Methodology")
@@ -163,7 +165,6 @@ function(input, output, session){
                        
                        fluidRow(plotOutput("cump2"), height=450, width = "80%"),
                        fluidRow(plotOutput("cump3"), height=450, width = "80%"),
-                       fluidRow(
                        div( id = 'message_to_show_more',
                             tags$hr(),
                             tags$h3( "Click on the 'Show more details' button to display additional information on survey progress." ),
@@ -179,34 +180,12 @@ function(input, output, session){
                        shinyjs::hidden( div( id = "load_more_message",
                                              tags$hr(),
                                              tags$h1("Loading...", align = "center")  )
-                       )),
+                       )
                        
-                       fluidRow(plotOutput("trendp1")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
-                       fluidRow(plotOutput("trendp2")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
-                       fluidRow(plotOutput("trendp3")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
+                    
                        
-                       fluidRow(HTML("<h2>Number of Respondents against Targets</h2>")),
-                       
-                       fluidRow(plotOutput("achieved_plot")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
-                   
-                       fluidRow(HTML("<h2>Data Collection Achievements</h2>")),
-                       #fluidRow(downloadButton("download_datatab_resp", "Download", class="button"), width = 800),
-                       fluidRow(title = h1(strong("Data Breakdown by Location")),DT::dataTableOutput("datatab_resp") %>%
-                                  withSpinner(color = "#871946"),height = 800, width=100),
-                       
-                       #fluidRow(downloadButton("download_datatab_resp1", "Download", class="button"), width = 800),
-                       fluidRow(title = h1(strong("Enumerators Achivement")),DT::dataTableOutput("datatab_resp1") %>% 
-                                  withSpinner(color = "#871946"),height = 800, width=100),
-                       
-                       fluidRow(HTML("<h2>Data Collection Geolocations</h2>")),
-                       fluidRow(title = h1(strong("Activity Map")),
-                                    leafletOutput("mapleaflet", height = "550px") %>% 
-                                      withSpinner(color = "#871946")),
-                       fluidRow(HTML("<h2>Number of Respondents against Targets in Rural or Urban Areas </h2>")),
-                       
-                       fluidRow(plotOutput("achieved_plot1",height = 700), height=700, width = "80%"),
-                       fluidRow(HTML("<h2>Number of Respondents against Targets by their Gender </h2>")),
-                       fluidRow(plotOutput("achieved_plot2",height = 700), height=700, width = "80%")),
+        
+  ),
                  
              
       tabItem(tabName = "KeySurveyQuestions",
@@ -502,7 +481,6 @@ function(input, output, session){
     }
     
   
-  #Trends
     
     cump1 <- function(){
       cumplot_Overall
@@ -512,10 +490,46 @@ function(input, output, session){
       cump1()
     })
     
-
-
+    output$cump2  <-renderPlot({
+      cump2()
+    })
+    
+    cump2 <- function(){
+      cum_EA
+    }
+    
+    output$cump3  <-renderPlot({
+      cump3()
+    })
+    
+    cump3 <- function(){
+      cum_Gender
+    }
     
     
+  #removeUI( selector = '#main_wait_message' )
+  
+  observeEvent(input$btn_show_more,
+                {
+                  
+                  ## disable the buttone ---
+                  shinyjs::disable("btn_show_more")
+                  ## --- hide message to show more -----
+                  shinyjs::hide(id = 'message_to_show_more')
+                  ## --- show loading message ---
+                  shinyjs::show( id = "load_more_message" )
+                  
+                  # 4. Treemap key export commodity and services ------------------------------------
+                  withProgress(message = 'Loading...', value = (i_prog-1)/tot_step, {
+                    # Increment the progress bar, and update the detail text.
+                    incProgress( i_prog/tot_step, detail = NULL)
+                    ##Sys.sleep(0.1)
+                    
+                  })
+                  i_prog <- i_prog + 1
+    
+  #Trends
+  icont<-2  
   output$trendp1  <-renderPlot({
     trendp1()
   })
@@ -543,21 +557,7 @@ function(input, output, session){
     trend_gender
   }
   
-  output$cump2  <-renderPlot({
-    cump2()
-  })
   
-  cump2 <- function(){
-    cum_EA
-  }
-  
-  output$cump3  <-renderPlot({
-    cump3()
-  })
-  
-  cump3 <- function(){
-    cum_Gender
-  }
   
   achieved_plot1<- function(){
     draw_achieved_plot1
@@ -591,23 +591,7 @@ function(input, output, session){
   enum_tab_func <- function(){
     enum_tab
   }
-  
-  output$datatab = DT::renderDataTable({
-    datatable(dplyr::select(dat,-c(var_drop)),extensions = c("Scroller"), 
-              options = list(
-                searching = TRUE,
-                autoWidth = FALSE,
-                rownames = FALSE,
-                scroller = TRUE,
-                scrollX = TRUE,
-                paging =TRUE,
-                pageLength=6,
-                scrollY = "600px",
-                fixedHeader = TRUE,
-                class = 'cell-border stripe'),
-              selection = "multiple",
-              filter="top")
-  })
+
   
 
   
@@ -623,6 +607,24 @@ function(input, output, session){
                 fixedHeader = TRUE,
                 class = 'cell-border stripe'))
   })
+  
+  
+  output$datatab_resp = DT::renderDataTable({
+    datatable(respondent_tab_func(),extensions = c("Scroller"), 
+              options = list(
+                searching = TRUE,
+                autoWidth = FALSE,
+                rownames = FALSE,
+                scroller = FALSE,
+                scrollX = TRUE,
+                paging =TRUE,
+                pageLength=6,
+                fixedHeader = TRUE,
+                class = 'cell-border stripe'),
+              selection = "multiple",
+              filter="top")
+  })
+  
   
   tbl1 <- function(){
     respondent_tab_func()
@@ -652,6 +654,8 @@ function(input, output, session){
     gis_df<-gis_df%>%filter((!is.na(Longitude))&!is.na(Latitude))
   }
   
+  
+  
   output$mapleaflet <- renderLeaflet({
     icon.fa = makeIcon("pushpinround.png", iconWidth = 60, iconHeight = 48)
     
@@ -672,8 +676,45 @@ function(input, output, session){
     
   })
   
-
   
+  
+  insertUI(
+    selector = '#show_more_detail',
+    ui = div( id = 'conents_for_more_detail',
+              
+              fluidRow(plotOutput("trendp1")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
+              fluidRow(plotOutput("trendp2")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
+              fluidRow(plotOutput("trendp3")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
+              
+              fluidRow(HTML("<h2>Number of Respondents against Targets</h2>")),
+              
+              fluidRow(plotOutput("achieved_plot")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
+              
+              fluidRow(HTML("<h2>Data Collection Achievements</h2>")),
+              #fluidRow(downloadButton("download_datatab_resp", "Download", class="button"), width = 800),
+              fluidRow(title = h1(strong("Data Breakdown by Location")),DT::dataTableOutput("datatab_resp") %>%
+                         withSpinner(color = "#871946"),height = 800, width=100),
+              
+              #fluidRow(downloadButton("download_datatab_resp1", "Download", class="button"), width = 800),
+              fluidRow(title = h1(strong("Enumerators Achivement")),DT::dataTableOutput("datatab_resp1") %>% 
+                         withSpinner(color = "#871946"),height = 800, width=100),
+              
+              fluidRow(HTML("<h2>Data Collection Geolocations</h2>")),
+              fluidRow(title = h1(strong("Activity Map")),
+                       leafletOutput("mapleaflet", height = "550px") %>% 
+                         withSpinner(color = "#871946")),
+              fluidRow(HTML("<h2>Number of Respondents against Targets in Rural or Urban Areas </h2>")),
+              
+              fluidRow(plotOutput("achieved_plot1",height = 700), height=700, width = "80%"),
+              fluidRow(HTML("<h2>Number of Respondents against Targets by their Gender </h2>")),
+              fluidRow(plotOutput("achieved_plot2",height = 700), height=700, width = "80%")
+              
+              
+    ))
+  shinyjs::hide( id = "load_more_message" )
+  
+
+  })
   
   #######KPS
   
@@ -749,24 +790,6 @@ function(input, output, session){
     draw_plot15
   }
   
- 
-  
-  output$datatab_resp = DT::renderDataTable({
-    datatable(respondent_tab_func(),extensions = c("Scroller"), 
-              options = list(
-                searching = TRUE,
-                autoWidth = FALSE,
-                rownames = FALSE,
-                scroller = FALSE,
-                scrollX = TRUE,
-                paging =TRUE,
-                pageLength=6,
-                fixedHeader = TRUE,
-                class = 'cell-border stripe'),
-              selection = "multiple",
-              filter="top")
-  })
-  
   
   
  
@@ -834,6 +857,27 @@ function(input, output, session){
     
     tags$iframe(style="height:800px; width:100%;scrolling=yes", src="Research_Methodology.pdf")
   })
+  
+  
+  
+  
+  output$datatab = DT::renderDataTable({
+    datatable(dplyr::select(dat,-c(var_drop)),extensions = c("Scroller"), 
+              options = list(
+                searching = TRUE,
+                autoWidth = FALSE,
+                rownames = FALSE,
+                scroller = TRUE,
+                scrollX = TRUE,
+                paging =TRUE,
+                pageLength=6,
+                scrollY = "600px",
+                fixedHeader = TRUE,
+                class = 'cell-border stripe'),
+              selection = "multiple",
+              filter="top")
+  })
+  
   
   #Downlaoding project Details
   output$aboutdoc <- downloadHandler(
@@ -912,6 +956,9 @@ function(input, output, session){
       file.rename(res, file)
     }
   )
+  
+  
+  
   
   
   
