@@ -171,7 +171,7 @@ function(input, output, session){
                             actionButton("btn_show_more",
                                          paste0(' Show more details'),
                                          icon = icon('chevron-circle-down'),
-                                         style='padding-top:3px; padding-bottom:3px;padding-left:5px;padding-right:5px;font-size:120% '
+                                         style='padding-top:3px; padding-bottom:3px;padding-left:5px;padding-right:5px;font-size:120%;color:#881946;'
                             ) 
                        ),
                        
