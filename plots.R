@@ -416,6 +416,22 @@ draw_plot8 <- ggplot(C8_1_data_plot, aes(y = Number, x = reorder(C8_1, Number),f
 
 
 
+C8_1_data_stack <- dat%>% group_by(C8_1,B2) %>% summarise(Number = n())
+C8_1_data_plot_stack<- C8_1_data_stack%>%group_by(C8_1)%>%mutate(proportions =round(100*(Number/sum(Number)),0))
+
+draw_plot8a <- ggplot(C8_1_data_plot_stack, aes(y = proportions, x = C8_1,fill=B2)) + geom_bar(stat = "identity") + 
+  theme_classic()+coord_flip()+theme(plot.margin = unit(c(1, 1, 1, 1), "cm"),axis.text.x = element_blank(), axis.ticks = element_blank(),
+                                                                                                     plot.title = element_text(hjust = 0.5,size = 20),
+                                                                                                     axis.text.y = element_text(size = 16, colour = "black"),
+                                                                                                     legend.title=element_text(size=18),legend.text = element_text(size = 16),
+                                                                                                     legend.position = "none") + xlab("") + ylab("")+ggtitle("Bank Account(s) Ownership")+labs(fill = "Gender:")+
+  geom_text(aes(y= proportions, 
+                label = paste0(Number, " \n(",proportions, "%)")),size=6,position = position_stack(vjust = .75),colour ="white")+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
+
+
+
+
+
 
 C8_2_data <- dat%>% group_by(C8_2) %>% summarise(Number = n())
 C8_2_data_plot<- C8_2_data%>%mutate(proportions =round(100*(Number/sum(Number)),0))
@@ -430,6 +446,20 @@ draw_plot9 <- ggplot(C8_2_data_plot, aes(y = Number, x = reorder(C8_2, Number),f
                         legend.position = "none") + xlab("") + ylab("")+ggtitle("Mobile Money Account(s) Ownership")+labs(fill = "Gender:")+
   geom_text(aes(y= Number, 
                 label = paste0(Number, " \n(",proportions, "%)")),size=6,hjust = 0)+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
+
+C8_2_data_stack <- dat%>% group_by(C8_2, B2) %>% summarise(Number = n())
+C8_2_data_plot_stack<- C8_2_data_stack%>%group_by(C8_2)%>%mutate(proportions =round(100*(Number/sum(Number)),0))
+
+
+draw_plot9a <- ggplot(C8_2_data_plot_stack, aes(y = proportions, x = C8_2,fill=B2)) + geom_bar(stat = "identity") + 
+  theme_classic()+coord_flip()+
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
+        plot.title = element_text(hjust = 0.5,size = 20),
+        axis.text.y = element_text(size = 16, colour = "black"), 
+        legend.title=element_text(size=18),legend.text = element_text(size = 16),
+        legend.position = "none") + xlab("") + ylab("")+ggtitle("Mobile Money Account(s) Ownership")+labs(fill = "Gender:")+
+  geom_text(aes(y= proportions, 
+                label = paste0(Number, " \n(",proportions, "%)")),size=6, position = position_stack(vjust = .75), colour ="white")+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
 
 
 

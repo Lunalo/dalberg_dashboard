@@ -358,12 +358,29 @@ function(input, output, session){
                    draw_plot8
                  }
                  
+                 output$plot8a <- renderPlot({
+                   plot8a()
+                 })
+                 
+                 plot8a <- function(){
+                   draw_plot8a
+                 }
+                 
+                 
                  output$plot9 <- renderPlot({
                    plot9()
                  })
                  
                  plot9 <- function(){
                    draw_plot9
+                 }
+                 
+                 output$plot9a <- renderPlot({
+                   plot9a()
+                 })
+                 
+                 plot9a <- function(){
+                   draw_plot9a
                  }
                  
                  
@@ -375,7 +392,9 @@ function(input, output, session){
                    ui = div( id = 'conents_for_more_detail1',
                              
                              fluidRow(plotOutput("plot8")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
-                             fluidRow(plotOutput("plot9")%>% withSpinner(color = "#871946"), height=600, width = "100%")
+                             fluidRow(plotOutput("plot8a")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
+                             fluidRow(plotOutput("plot9")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
+                             fluidRow(plotOutput("plot9a")%>% withSpinner(color = "#871946"), height=600, width = "100%")
                              
                              
                    ))
