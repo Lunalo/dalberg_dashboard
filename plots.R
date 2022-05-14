@@ -424,7 +424,7 @@ draw_plot8a <- ggplot(C8_1_data_plot_stack, aes(y = proportions, x = C8_1,fill=B
                                                                                                      plot.title = element_text(hjust = 0.5,size = 20),
                                                                                                      axis.text.y = element_text(size = 16, colour = "black"),
                                                                                                      legend.title=element_text(size=18),legend.text = element_text(size = 16),
-                                                                                                     legend.position = "none") + xlab("") + ylab("")+ggtitle("Bank Account(s) Ownership")+labs(fill = "Gender:")+
+                                                                                                     legend.position = "bottom") + xlab("") + ylab("")+ggtitle("Bank Account(s) Ownership by Gender")+labs(fill = "Gender:")+
   geom_text(aes(y= proportions, 
                 label = paste0(Number, " \n(",proportions, "%)")),size=6,position = position_stack(vjust = .75),colour ="white")+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
 
@@ -457,7 +457,7 @@ draw_plot9a <- ggplot(C8_2_data_plot_stack, aes(y = proportions, x = C8_2,fill=B
         plot.title = element_text(hjust = 0.5,size = 20),
         axis.text.y = element_text(size = 16, colour = "black"), 
         legend.title=element_text(size=18),legend.text = element_text(size = 16),
-        legend.position = "none") + xlab("") + ylab("")+ggtitle("Mobile Money Account(s) Ownership")+labs(fill = "Gender:")+
+        legend.position = "bottom") + xlab("") + ylab("")+ggtitle("Mobile Money Account(s) Ownership by Gender")+labs(fill = "Gender:")+
   geom_text(aes(y= proportions, 
                 label = paste0(Number, " \n(",proportions, "%)")),size=6, position = position_stack(vjust = .75), colour ="white")+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
 
@@ -651,6 +651,31 @@ draw_achieved_plot2 <- ggplot(achieved_bar2, aes(y = value, x = reorder(Intervie
 
 
 
+
+C13_data <- dat%>% group_by(C13) %>% summarise(Number = n())
+C13_data_plot<- C13_data%>%group_by(C13)%>%mutate(proportions =round(100*(Number/sum(C13_data$Number)),0))
+
+C13_data_plot_max <- max(C13_data_plot$Number)
+
+draw_plot6_6 <- ggplot(C13_data_plot, aes(y = Number, x = reorder(C13, Number))) + geom_bar(stat = "identity", fill = "#00A7CC") + 
+  theme_classic() + coord_flip() +scale_y_continuous(limits = c(0, C13_data_plot_max+round(C13_data_plot_max*0.05)))+theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
+                                        plot.title = element_text(hjust = 0.5,size = 20),
+                                        axis.text.y = element_text(size = 16, colour = "black"), 
+                                        legend.position = "none") + xlab("") + ylab("")+ggtitle("Respodents Breakdown by their Saving Behaviour") + geom_text(aes(y= Number, 
+                                                                                                                                                                  label = paste0(Number, " \n(",proportions, "%)")),size=6,hjust = 0)
+
+
+C13_data_stack <- dat%>% group_by(C13, B2) %>% summarise(Number = n())
+C13_data_plot_stack<- C13_data_stack%>%group_by(C13)%>%mutate(proportions =round(100*(Number/sum(Number)),0))
+
+
+draw_plot6_6a <- ggplot(C13_data_plot_stack, aes(y = proportions, x = C13, fill= B2)) + geom_bar(stat = "identity") + 
+  theme_classic() + coord_flip()+theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
+ plot.title = element_text(hjust = 0.5,size = 20),
+ axis.text.y = element_text(size = 16, colour = "black"), 
+ legend.position = "none") + xlab("") + ylab("")+scale_fill_manual(values=c("#00A7CC","#F3B11C"))+
+  ggtitle("Respodents Breakdown by their Saving Behaviour and Gender") + geom_text(aes(y= proportions, 
+ label = paste0(Number, " \n(",proportions, "%)")),size=6,position = position_stack(vjust = .75),colour ="white")
 
 
 
