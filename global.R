@@ -64,3 +64,10 @@ to obtaining the information required to fuel sustainable and inclusive growth a
 Dalberg Research has also developed LOCAN, Kenya's most comprehensive geo-spatial research database
 with more than 30 million data points from more than 150 sources. Results from LOCAN are used to generate
 unprecedented insights.</p><br><br>"
+
+
+
+KeySurveyQuestionsIntro <- "<h2>Introduction</h2><br><p>The section captures details on Key performance Indicators, outcomes and objectives of the survey. We start of by assessing the outcome
+variables. We use various approaches to display insights. The approaches include bar, line, pie, tables, cards and more. Similar approach
+ is applied for to the outcomes and objectives of the survey</p>"
+

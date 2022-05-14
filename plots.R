@@ -21,13 +21,13 @@ draw_plot1 <- ggplot(q_11_and_B2_py, aes(x = 2, y = Proportions, fill = B2 )) +
   geom_bar(stat = "identity", color = "white") +
   coord_polar(theta = "y", start = 0)+geom_text(aes(y = lab.ypos, 
                                                     label = paste0(Number, " \n(",round(Proportions), "%)")), color = "white", size=6)+
-  theme_classic()+ylab("")+xlab("")+ggtitle("Respondents by Gender and EA Type")+
-  theme(plot.title = element_text(hjust=0.5,size = 20),axis.text = element_blank(), axis.ticks = element_blank(),
-        legend.title=element_text(size=22),legend.text = element_text(size = 16),legend.position = "bottom",
-        strip.text= element_text(size = 24, colour = "black"), panel.spacing =unit(.05, "lines"),
-        panel.border = element_rect(color = "black", fill = NA, size = .8),
-        strip.background = element_rect(color = "black", size = 1))+
-  scale_fill_manual(values=c("#00558A","#881946"))+labs(fill = "Gender of the Respondents:")+
+  theme_classic()+ylab("")+xlab("")+ggtitle("Respondents by Gender and Urban Rural")+
+  theme(axis.line = element_line(colour = "white"),plot.title = element_text(hjust=0.5,size = 20),axis.text = element_blank(), axis.ticks = element_blank(),
+        legend.title=element_text(size=18),legend.text = element_text(size = 16),legend.position = "bottom",
+        panel.spacing =unit(24, "lines"),strip.text= element_text(size = 18, colour = "black"),
+        panel.border = element_rect(color = "white", fill = NA, size = .1),
+        strip.background = element_rect(color = "white", size = 1))+
+  scale_fill_manual(values=c("#00A7CC","#F3B11C"))+labs(fill = "Gender:")+
   xlim(.9, 2.5)+facet_wrap(.~Q_11, labeller = label_wrap_gen())
 
 #############################Gender Chart
@@ -44,9 +44,9 @@ draw_plot2 <- ggplot(B2_py, aes(x = 2, y = Proportions, fill = B2 )) +
   coord_polar(theta = "y", start = 0)+geom_text(aes(y = lab.ypos, 
                                                     label = paste0(Number, " (",round(Proportions), "%)")), color = "white", size=6)+
   theme_void()+ylab("")+xlab("")+ggtitle("Gender of the Respondents")+
-  theme(plot.title = element_text(hjust=0.5,size = 20),axis.text = element_blank(), axis.ticks = element_blank(),
+  theme(axis.line = element_line(colour = "white"),plot.title = element_text(hjust=0.5,size = 20),axis.text = element_blank(), axis.ticks = element_blank(),
         legend.title=element_text(size=18),legend.text = element_text(size = 14),legend.position = "bottom")+
-  scale_fill_manual(values=c("#00558A","#881946"))+labs(fill = "Gender:")
+  scale_fill_manual(values=c("#00A7CC","#F3B11C"))+labs(fill = "Gender:")
 
 
 ##################Type of Locale EA Type Chart
@@ -62,10 +62,10 @@ draw_plot21 <- ggplot(Q11_py, aes(x = 2, y = Proportions, fill = Q_11 )) +
   geom_bar(stat = "identity", color = "white") +
   coord_polar(theta = "y", start = 0)+geom_text(aes(y = lab.ypos, 
                                                     label = paste0(Number, " (",round(Proportions), "%)")), color = "white", size=6)+
-  theme_void()+ylab("")+xlab("")+ggtitle("Respondents by EA Type")+
+  theme_void()+ylab("")+xlab("")+ggtitle("Respondents by Urban Rural")+
   theme(plot.title = element_text(hjust=0.5,size = 20),axis.text = element_blank(), axis.ticks = element_blank(),
         legend.title=element_text(size=18),legend.text = element_text(size = 16),legend.position = "bottom")+
-  scale_fill_manual(values=c("#00A7CC","#F3B11C"))+labs(fill = "EA Type:")
+  scale_fill_manual(values=c("#00A7CC","#F3B11C"))+labs(fill = "Urban Rural:")
 
 ###################Age Group
 B1_data <- dat %>% group_by(B1) %>% summarise(Number = n())
@@ -113,10 +113,10 @@ pyramid_data1$Population <- ifelse(pyramid_data1$B2=="Male", pyramid_data1$Popul
 
 draw_plot3 <- ggplot(data = pyramid_data1, aes(x= B1, y = Population, fill= B2))+geom_bar(stat = "identity", width = .95)+
   coord_flip()+theme_classic()+ylab("")+annotate("text", x = 7, y=min(pyramid_data1$Population)+5, 
-                                                 label = "Male", size=10, color="#00558A")+annotate("text", x = 7, y=max(pyramid_data1$Population)-5, 
-                                                                                                    label = "Female", color="#881946", size=10)+theme(legend.position = "None", axis.text = element_text(colour = "black",
-                                                                                                                                                                                                         face = "bold"), axis.title.y = element_blank(), axis.title.x = element_text(face = "bold", size = 12))+
-  scale_fill_manual(values = c("#00558A","#881946"))+geom_text(aes(y= Population,label=Perc),size=6,hjust = .4)
+                                                 label = "Male", size=10, color="#00A7CC")+annotate("text", x = 7, y=max(pyramid_data1$Population)-5, 
+                                                                                                    label = "Female", color="#F3B11C", size=10)+theme(legend.position = "None", axis.text = element_text(colour = "black",
+                                                                                                                                                                                                         face = "bold"), axis.title.y = element_blank(), axis.title.x = element_text(face = "bold", size = 18))+
+  scale_fill_manual(values = c("#00A7CC","#F3B11C"))+geom_text(aes(y= Population,label=Perc),size=6,hjust = .4)
 
 
 B3_data <- dat%>% group_by(B3) %>% summarise(Number = n())
@@ -620,4 +620,9 @@ draw_achieved_plot2 <- ggplot(achieved_bar2, aes(y = value, x = reorder(Intervie
                         strip.background = element_rect(color = "grey", size = 1)) + xlab("") + ylab("")+ggtitle("")+
   geom_text(aes(y= value, 
                 label = formatC(value,format = "f", digits = 0, big.mark = ",")),size=6,vjust = 0)+facet_wrap(.~B2, ncol = 2, labeller = as_labeller(labelcustom_g))+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
+
+
+
+
+
 

@@ -116,44 +116,10 @@ function(input, output, session){
                                 document.getElementById('timer').innerHTML = 'EXPIRED';
                               }
                               }, 1000);
-                              </script><style> #timer{padding-left: 50px; background-color:white;font-family: Lato;font-weight:bold; font-size: 20px; color: #881946;}</style>"))),
+                              </script><style> #timer{padding-left: 50px; background-color:white;font-family: Lato;font-weight:bold; font-size: 20px; color: #881946;}</style>")))
                        
                              
                                 
-                                fluidRow(column = 8, box(plotOutput("plot1"), height=450),
-                                column = 4,box(plotOutput("plot2"),height=450)),
-                                
-                                fluidRow(column = 8, box(plotOutput("plot22"), height=450),
-                                column = 4,box(plotOutput("plot21"),height=450)),
-                                
-                                fluidRow(column = 8, box(plotOutput("plot23"), height=450),
-                                column = 4,box(plotOutput("plot24"),height=450)),
-                                fluidRow(box(HTML("<h1>Respondents Destribution by Their Age and Gender</h1>"), class="htx",width = "80%")),
-                                fluidRow(box(plotOutput("plot3"), height = 450, width = "80%")),
-                    
-                                fluidRow(box(plotOutput("plot4"), height = 450, width = "80%")),
-                                
-                                fluidRow(box(plotOutput("plot5"), height = 450, width = "80%")),
-                                fluidRow(box(plotOutput("plot6"), height = 450, width = "80%")),
-                                
-                                fluidRow(box(plotOutput("plot6_4"),height = 450, width = "80%")),
-                                fluidRow(box(plotOutput("plot6_3"), height = 450, width = "80%")),
-                                
-                                fluidRow(box(plotOutput("plot6_5"),height = 450, width = "80%")),
-                                fluidRow(box(plotOutput("plot6_6"), height = 450, width = "80%")),
-                                
-                                fluidRow(box(plotOutput("plot6_2"),height = 450, width = "80%")),
-                                
-                                fluidRow(box(HTML("<h1>Distribution of the Continuous Features</h1>"), class="htx",width = "80%"),
-                                         tags$style(
-                                           ".htx {color:#881946; 
-                                          font-size:20px; 
-                                          font-weight:bold;
-                                          padding-left:400px;
-                                          line-height:22px;}")),
-                       
-                                fluidRow(column = 6, box(plotOutput("plot6_1"), height=450),
-                                column = 6,box(plotOutput("plot6_12"),height=450))
                          ),
                tabItem(tabName = "SurveyProgress",
                        fluidRow(HTML("<h2>Daily and Cumulative Updates of Data Collection</h2><br><br><p>This section provides both the daily and cumulative updates of data collection.
@@ -189,9 +155,8 @@ function(input, output, session){
                  
              
       tabItem(tabName = "KeySurveyQuestions",
-                       
-                      fluidRow(column = 4,box(downloadButton("report", "Download",icon = icon("download",lib = "font-awesome"), class = "button")),
-                               column = 8, box(HTML("<p id ='timer1'></p>
+              
+              fluidRow(box(width = "100%", HTML("<p id ='timer1'></p>
                           
                           <script>
                           // Set the date we're counting down to
@@ -222,41 +187,33 @@ function(input, output, session){
                           document.getElementById('timer1').innerHTML = 'EXPIRED';
                           }
                           }, 1000);
-                          </script><style> #timer1{padding-left: 50px; background-color:white;font-family: Lato;font-weight:bold; font-size: 17px; color: #00a7cc;}</style>"))),         
+                          </script><style> #timer1{padding-left: 50px;text-align: right; background-color:white;font-family: Lato;font-weight:bold; font-size: 17px; color: #00a7cc;}</style>"))),         
+              
+              fluidRow(HTML(KeySurveyQuestionsIntro)),
+              fluidRow(column = 6, box(plotOutput("plot2",height = 310), height=330),column = 6, box(plotOutput("plot21",height = 310),height=330)),
+              fluidRow(box(plotOutput("plot1", height = 400),height=450, width = "100%")),
+              
+              fluidRow(box(plotOutput("plot22"), height=450, width = "100%")),
+          
+              fluidRow(box(HTML("<h2>Respondents Destribution by Their Age and Gender</h2>"), width = "100%")),
+              fluidRow(box(plotOutput("plot3"), height = 450, width = "80%")),
 
-                       fluidRow(box(HTML("<h2>Smart Phones Ownership by Gender</h2>"),width = "100%"),),
-                       
-                       fluidRow(box(plotOutput("plot7", width="100%")%>% withSpinner(color = "#871946"), height = 450, width = "80%")),
-                       
-                       fluidRow(column= 6,  box(HTML("<h2>Bank Account Ownership by Gender</h2>")),
-                       column =6, box(HTML("<h2>Mobile Money Account Ownership by Gender</h2>"))),
+              div( id = 'message_to_show_more1',
+                   tags$hr(),
+                   tags$h3( "Click on the 'Show more details' button to display additional details on Key Questions." ),
+                   actionButton("btn_show_more1",
+                                paste0(' Show more details'),
+                                icon = icon('chevron-circle-down'),
+                                style='padding-top:3px; padding-bottom:3px;padding-left:5px;padding-right:5px;font-size:120%;color:#881946;'
+                   ) 
+              ),
               
-                       fluidRow(column = 6, box(plotOutput("plot8",height=550)%>% withSpinner(color = "#871946"), height=600),
-                       column = 6, box(plotOutput("plot9",height=550)%>% withSpinner(color = "#871946"),height=600)),
-                       
+              div( id = "show_more_detail1" ) ,
               
-                      fluidRow(box(HTML("<h2>Smart Phones Ownership by Rural Urban</h2>"),width = "80%")),
-                      
-                      fluidRow(box(plotOutput("plot10", width="100%")%>% withSpinner(color = "#871946"), height = 450, width = "80%")),
-                      
-                      fluidRow(column= 6,  box(HTML("<h2>Bank Account Ownership by Rural Urban</h2>")),
-                               column =6, box(HTML("<h2>Mobile Money Account Ownership by Rural Urban</h2>"))
-                              ),
-                      
-                      fluidRow(column = 6, box(plotOutput("plot11",height=550), height=600),
-                               column = 6, box(plotOutput("plot12",height=550),height=600)),
-                      
-                      fluidRow(box(HTML("<h2>Mobile Money Account Ownership by Age</h2>"),width = "80%")),
-                      
-                      fluidRow(box(plotOutput("plot13", width="100%"), height = 450, width = "80%")),
-                       
-                      fluidRow(box(HTML("<h2>Smartphones Ownership by Age</h2>"),width = "80%")),
-                      
-                      fluidRow(box(plotOutput("plot14", width="100%", height = 1320), height = 1350, width = "80%")),
-              
-                      fluidRow(box(HTML("<h2>Bank Account Ownership by Age</h2>"),width = "80%")),
-                      
-                      fluidRow(box(plotOutput("plot15", width="100%", height = 430), height = 450, width = "80%"))
+              shinyjs::hidden( div( id = "load_more_message1",
+                                    tags$hr(),
+                                    tags$h1("Loading...", align = "center")  )
+              )
                    
                        
       ),

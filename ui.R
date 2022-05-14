@@ -71,9 +71,7 @@ dalbergBody <- dashboardBody(
                             .skin-blue .main-header .navbar {
                             background-color:white;
                             font-family: "Lato";
-                            height: 30px;
-                       
-                            }
+                                                }
                             
                      
                             /* main sidebar */
