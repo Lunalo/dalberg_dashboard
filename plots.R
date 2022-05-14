@@ -69,14 +69,15 @@ draw_plot21 <- ggplot(Q11_py, aes(x = 2, y = Proportions, fill = Q_11 )) +
 
 ###################Age Group
 B1_data <- dat %>% group_by(B1) %>% summarise(Number = n())
-B1_data_plot<- B1_data%>%group_by(B1)%>%mutate(proportions =round(100*(Number/sum(B1_data$Number)),2))
+B1_data_plot<- B1_data%>%group_by(B1)%>%mutate(proportions =round(100*(Number/sum(B1_data$Number)),1))
 
+ymax_b1 <- max(B1_data_plot$Number)
 draw_plot22 <- ggplot(B1_data_plot, aes(y = Number, x = B1,fill = B1)) + geom_bar(stat = "identity", fill = "#00A7CC") + 
-  theme_classic() + coord_flip() +theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
+  theme_classic() + coord_flip() +scale_y_continuous(limits = c(0,ymax_b1+round(.1*ymax_b1,0)))+theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
                                         plot.title = element_text(hjust = 0.5,size = 20),
                                         axis.text.y = element_text(size = 16, colour = "black"), 
                                         legend.position = "none") + xlab("") + ylab("")+ggtitle("Respondents by Age") + geom_text(aes(y= Number, label = paste0(Number, " \n(",proportions, "%)")),
-                                                                                                                                  size=6,hjust = 0.4)
+                                                                                                                                  size=6,hjust = 0)
 
 ###################Age Group and EA Type
 
@@ -112,10 +113,9 @@ pyramid_data1$Population <- ifelse(pyramid_data1$B2=="Male", pyramid_data1$Popul
 
 
 draw_plot3 <- ggplot(data = pyramid_data1, aes(x= B1, y = Population, fill= B2))+geom_bar(stat = "identity", width = .95)+
-  coord_flip()+theme_classic()+ylab("")+annotate("text", x = 7, y=min(pyramid_data1$Population)+5, 
+  coord_flip()+theme_classic()+ylab("")+xlab("")+ggtitle("Respondents Destribution by their Age and Gender")+annotate("text", x = 7, y=min(pyramid_data1$Population)+5, 
                                                  label = "Male", size=10, color="#00A7CC")+annotate("text", x = 7, y=max(pyramid_data1$Population)-5, 
-                                                                                                    label = "Female", color="#F3B11C", size=10)+theme(legend.position = "None", axis.text = element_text(colour = "black",
-                                                                                                                                                                                                         face = "bold"), axis.title.y = element_blank(), axis.title.x = element_text(face = "bold", size = 18))+
+                                                                                                    label = "Female", color="#F3B11C", size=10)+theme(legend.position = "None", axis.text = element_text(colour = "black",size = 16),axis.title = element_text(size = 20, colour = "black"))+
   scale_fill_manual(values = c("#00A7CC","#F3B11C"))+geom_text(aes(y= Population,label=Perc),size=6,hjust = .4)
 
 
@@ -400,38 +400,36 @@ draw_smartphones_ownership <- ggplot(C5_10_and_B2_py, aes(x = 2, y = Proportions
 
 
 
-C8_1_data <- dat%>% group_by(C8_1, B2) %>% summarise(Number = n())
-C8_1_data_plot<- C8_1_data%>%group_by(C8_1)%>%mutate(proportions =round(100*(Number/sum(Number)),2))
+C8_1_data <- dat%>% group_by(C8_1) %>% summarise(Number = n())
+C8_1_data_plot<- C8_1_data%>%mutate(proportions =round(100*(Number/sum(Number)),0))
 
-draw_plot8 <- ggplot(C8_1_data_plot, aes(y = Number, x = reorder(B2, Number),fill=B2)) + geom_bar(stat = "identity") + 
-  theme_classic()+theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
+ymax_c81 <- max(C8_1_data_plot$Number)
+
+draw_plot8 <- ggplot(C8_1_data_plot, aes(y = Number, x = reorder(C8_1, Number),fill=C8_1)) + geom_bar(stat = "identity") + 
+  theme_classic()+coord_flip()+scale_y_continuous(limits = c(0,ymax_c81+round(.1*ymax_c81,0)))+theme(plot.margin = unit(c(1, 1, 1, 1), "cm"),axis.text.x = element_blank(), axis.ticks = element_blank(),
                         plot.title = element_text(hjust = 0.5,size = 20),
                         axis.text.y = element_text(size = 16, colour = "black"),
                         legend.title=element_text(size=18),legend.text = element_text(size = 16),
-                        legend.position = "bottom", panel.spacing =unit(2, "lines"),strip.text= element_text(size = 18, colour = "black"),
-                        panel.border = element_rect(color = "black", fill = NA, size = .8),
-                        strip.background = element_rect(color = "black", size = 1)) + xlab("") + ylab("")+ggtitle("Bank Account(s)")+labs(fill = "Gender:")+
+                        legend.position = "none") + xlab("") + ylab("")+ggtitle("Bank Account(s) Ownership")+labs(fill = "Gender:")+
   geom_text(aes(y= Number, 
-                label = paste0(Number, " (",proportions, "%)")),size=6,vjust = 0)+facet_wrap(.~C8_1, ncol = 2, labeller = label_wrap_gen())+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
+                label = paste0(Number, " \n(",proportions, "%)")),size=6,hjust = 0)+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
 
 
 
 
-C8_2_data <- dat%>% group_by(C8_2, B2) %>% summarise(Number = n())
-C8_2_data_plot<- C8_2_data%>%group_by(C8_2)%>%mutate(proportions =round(100*(Number/sum(Number)),2))
+C8_2_data <- dat%>% group_by(C8_2) %>% summarise(Number = n())
+C8_2_data_plot<- C8_2_data%>%mutate(proportions =round(100*(Number/sum(Number)),0))
 
-draw_plot9 <- ggplot(C8_2_data_plot, aes(y = Number, x = reorder(B2, Number),fill=B2)) + geom_bar(stat = "identity") + 
-  theme_classic()+theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
+ymax_c82 <- max(C8_2_data_plot$Number)
+draw_plot9 <- ggplot(C8_2_data_plot, aes(y = Number, x = reorder(C8_2, Number),fill=C8_2)) + geom_bar(stat = "identity") + 
+  theme_classic()+coord_flip()+scale_y_continuous(limits = c(0,ymax_c82+round(ymax_c82*0.1,0)))+
+                        theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
                         plot.title = element_text(hjust = 0.5,size = 20),
                         axis.text.y = element_text(size = 16, colour = "black"), 
                         legend.title=element_text(size=18),legend.text = element_text(size = 16),
-                        legend.position = "bottom", panel.spacing =unit(2, "lines"),strip.text= element_text(size = 18, colour = "black"),
-                        panel.border = element_rect(color = "black", fill = NA, size = .8),
-                        strip.background = element_rect(color = "black", size = 1)) + xlab("") + ylab("")+ggtitle("Mobile Money Account(s)")+labs(fill = "Gender:")+
+                        legend.position = "none") + xlab("") + ylab("")+ggtitle("Mobile Money Account(s) Ownership")+labs(fill = "Gender:")+
   geom_text(aes(y= Number, 
-                label = paste0(Number, " (",proportions, "%)")),size=6,vjust = 0)+facet_wrap(.~C8_2, ncol = 2, labeller = label_wrap_gen())+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
-
-
+                label = paste0(Number, " \n(",proportions, "%)")),size=6,hjust = 0)+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
 
 
 

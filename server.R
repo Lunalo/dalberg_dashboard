@@ -194,8 +194,7 @@ function(input, output, session){
               fluidRow(box(plotOutput("plot1", height = 400),height=450, width = "100%")),
               
               fluidRow(box(plotOutput("plot22"), height=450, width = "100%")),
-          
-              fluidRow(box(HTML("<h2>Respondents Destribution by Their Age and Gender</h2>"), width = "100%")),
+             
               fluidRow(box(plotOutput("plot3"), height = 450, width = "80%")),
 
               div( id = 'message_to_show_more1',
@@ -328,6 +327,64 @@ function(input, output, session){
   plot2 <- function(){
     draw_plot2
   }
+  
+  
+  
+  observeEvent(input$btn_show_more1,
+               {
+                 
+                 ## disable the buttone ---
+                 shinyjs::disable("btn_show_more1")
+                 ## --- hide message to show more -----
+                 shinyjs::hide(id = 'message_to_show_more1')
+                 ## --- show loading message ---
+                 shinyjs::show( id = "load_more_message1" )
+                 
+                 # 4. Treemap key export commodity and services ------------------------------------
+                 withProgress(message = 'Loading...', value = (i_prog-1)/tot_step, {
+                   # Increment the progress bar, and update the detail text.
+                   incProgress( i_prog/tot_step, detail = NULL)
+                   ##Sys.sleep(0.1)
+                   
+                 })
+                 i_prog <- i_prog + 1
+                 
+                 
+                 output$plot8 <- renderPlot({
+                   plot8()
+                 })
+                 
+                 plot8 <- function(){
+                   draw_plot8
+                 }
+                 
+                 output$plot9 <- renderPlot({
+                   plot9()
+                 })
+                 
+                 plot9 <- function(){
+                   draw_plot9
+                 }
+                 
+                 
+                 
+                 
+                 
+                 insertUI(
+                   selector = '#show_more_detail1',
+                   ui = div( id = 'conents_for_more_detail1',
+                             
+                             fluidRow(plotOutput("plot8")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
+                             fluidRow(plotOutput("plot9")%>% withSpinner(color = "#871946"), height=600, width = "100%")
+                             
+                             
+                   ))
+                 shinyjs::hide( id = "load_more_message1" )
+                 
+              
+ } )
+  
+  
   
   output$plot23 <- renderPlot({
     plot23()
@@ -486,7 +543,7 @@ function(input, output, session){
                   i_prog <- i_prog + 1
     
   #Trends
-  icont<-2  
+
   output$trendp1  <-renderPlot({
     trendp1()
   })
@@ -673,6 +730,10 @@ function(input, output, session){
 
   })
   
+  
+  
+  
+
   #######KPS
   
   output$plot7 <- renderPlot({
@@ -683,21 +744,7 @@ function(input, output, session){
     draw_smartphones_ownership
   }
  
-  output$plot8 <- renderPlot({
-    plot8()
-  })
   
-  plot8 <- function(){
-    draw_plot8
-  }
-  
-  output$plot9 <- renderPlot({
-    plot9()
-  })
-  
-  plot9 <- function(){
-    draw_plot9
-  }
   
   output$plot10 <- renderPlot({
     plot10()
