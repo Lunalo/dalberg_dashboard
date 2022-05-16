@@ -287,9 +287,8 @@ trend_EA <- dat %>%group_by(Q_2, Q_11)%>%summarise(n=n())%>%filter(year(Q_2)!=20
 
 
 trend_Overall <- dat %>%group_by(Q_2)%>%summarise(n=n())%>%filter(year(Q_2)!=2015)%>%
-  ggplot(aes(x=Q_2, y=n)) +
-  geom_path(size =1.4, colour="#F3B11C") +
-  geom_point(size=4, colour="#F3B11C") +
+  ggplot(aes(x=Q_2, y=n)) + geom_area(fill="#00A7CC")+
+  geom_point(size=4, colour="#00A7CC") +
   ggtitle("") +
   theme_light() +
   ylab("Number of Submissions")+
@@ -416,17 +415,17 @@ draw_plot8 <- ggplot(C8_1_data_plot, aes(y = Number, x = reorder(C8_1, Number),f
 
 
 
-C8_1_data_stack <- dat%>% group_by(C8_1,B2) %>% summarise(Number = n())
-C8_1_data_plot_stack<- C8_1_data_stack%>%group_by(C8_1)%>%mutate(proportions =round(100*(Number/sum(Number)),0))
+C8_1_data_stack <- dat%>% group_by(B2,C8_1) %>% summarise(Number = n())
+C8_1_data_plot_stack<- C8_1_data_stack%>%group_by(B2)%>%mutate(proportions =round(100*(Number/sum(Number)),0))
 
-draw_plot8a <- ggplot(C8_1_data_plot_stack, aes(y = proportions, x = C8_1,fill=B2)) + geom_bar(stat = "identity") + 
-  theme_classic()+coord_flip()+theme(plot.margin = unit(c(1, 1, 1, 1), "cm"),axis.text.x = element_blank(), axis.ticks = element_blank(),
-                                                                                                     plot.title = element_text(hjust = 0.5,size = 20),
-                                                                                                     axis.text.y = element_text(size = 16, colour = "black"),
-                                                                                                     legend.title=element_text(size=18),legend.text = element_text(size = 16),
-                                                                                                     legend.position = "bottom") + xlab("") + ylab("")+ggtitle("Bank Account(s) Ownership by Gender")+labs(fill = "Gender:")+
-  geom_text(aes(y= proportions, 
-                label = paste0(Number, " \n(",proportions, "%)")),size=6,position = position_stack(vjust = .75),colour ="white")+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
+draw_plot8a <- ggplot(C8_1_data_plot_stack, aes(y = proportions, x = B2,fill=C8_1)) + geom_bar(stat = "identity") + 
+ theme_classic()+coord_flip()+theme(plot.margin = unit(c(1, 1, 1, 1), "cm"),axis.text.x = element_blank(), axis.ticks = element_blank(),
+ plot.title = element_text(hjust = 0.5,size = 20),
+ axis.text.y = element_text(size = 16, colour = "black"),
+ legend.title=element_text(size=18),legend.text = element_text(size = 16),
+ legend.position = "bottom") + xlab("") + ylab("")+ggtitle("Bank Account(s) Ownership by Gender")+labs(fill = "Own Bank Accounts:")+
+ geom_text(aes(y= proportions, 
+ label = paste0(Number, " \n(",proportions, "%)")),size=6,position = position_stack(vjust = .75),colour ="white")+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
 
 
 
@@ -447,19 +446,20 @@ draw_plot9 <- ggplot(C8_2_data_plot, aes(y = Number, x = reorder(C8_2, Number),f
   geom_text(aes(y= Number, 
                 label = paste0(Number, " \n(",proportions, "%)")),size=6,hjust = 0)+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
 
-C8_2_data_stack <- dat%>% group_by(C8_2, B2) %>% summarise(Number = n())
-C8_2_data_plot_stack<- C8_2_data_stack%>%group_by(C8_2)%>%mutate(proportions =round(100*(Number/sum(Number)),0))
+C8_2_data_stack <- dat%>% group_by(B2, C8_2) %>% summarise(Number = n())
+C8_2_data_plot_stack<- C8_2_data_stack%>%group_by(B2)%>%mutate(proportions =round(100*(Number/sum(Number)),0))
 
 
-draw_plot9a <- ggplot(C8_2_data_plot_stack, aes(y = proportions, x = C8_2,fill=B2)) + geom_bar(stat = "identity") + 
+draw_plot9a <- ggplot(C8_2_data_plot_stack, aes(y = proportions, x = B2,fill=C8_2)) + geom_bar(stat = "identity") + 
   theme_classic()+coord_flip()+
   theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
         plot.title = element_text(hjust = 0.5,size = 20),
         axis.text.y = element_text(size = 16, colour = "black"), 
         legend.title=element_text(size=18),legend.text = element_text(size = 16),
-        legend.position = "bottom") + xlab("") + ylab("")+ggtitle("Mobile Money Account(s) Ownership by Gender")+labs(fill = "Gender:")+
+        legend.position = "bottom") + xlab("") + ylab("")+ggtitle("Mobile Money Account(s) Ownership by Gender")+labs(fill = "Own Mobile Money Accounts:")+
   geom_text(aes(y= proportions, 
-                label = paste0(Number, " \n(",proportions, "%)")),size=6, position = position_stack(vjust = .75), colour ="white")+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
+  label = paste0(Number, " \n(",proportions, "%)")),size=6, position = position_stack(vjust = .75), colour ="white")+
+  scale_fill_manual(values=c("#00A7CC","#F3B11C"))
 
 
 
@@ -649,6 +649,43 @@ draw_achieved_plot2 <- ggplot(achieved_bar2, aes(y = value, x = reorder(Intervie
   geom_text(aes(y= value, 
                 label = formatC(value,format = "f", digits = 0, big.mark = ",")),size=6,vjust = 0)+facet_wrap(.~B2, ncol = 2, labeller = as_labeller(labelcustom_g))+scale_fill_manual(values=c("#00A7CC","#F3B11C"))
 
+
+
+C84_data <- dat%>% group_by(C8_4) %>% summarise(Number = n())
+C84_data_plot<- C84_data%>%mutate(proportions =round(100*(Number/sum(Number)),0))
+
+C84_data_plot_max <- max(C84_data_plot$Number)
+
+draw_plotC84 <- ggplot(C84_data_plot, aes(y = Number, x = reorder(C8_4, Number), fill=C8_4)) + geom_bar(stat = "identity") + 
+  theme_classic() + coord_flip() +scale_y_continuous(limits = c(0, C84_data_plot_max+round(C13_data_plot_max*0.05)))+theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
+ plot.title = element_text(hjust = 0.5,size = 20),
+ axis.text.y = element_text(size = 16, colour = "black"), 
+ legend.position = "none") + xlab("") + ylab("")+
+  ggtitle("Participation in Informal Savings or Investement Groups") + geom_text(aes(y= Number, 
+ label = paste0(Number, " \n(",proportions, "%)")),size=6,hjust = 0)+
+  scale_fill_manual(values=c("#00A7CC","#F3B11C"))
+
+
+
+C8_4_and_B2 <- dat %>% group_by(B2, C8_4) %>% summarise(Number = n())
+C8_4_and_B2_group <- C8_4_and_B2 %>% group_by(B2) %>% mutate(Proportions =round(Number/sum(Number)*100, 0))
+
+C8_4_and_B2_py<- C8_4_and_B2_group%>%
+  arrange(desc(C8_4)) %>%
+  mutate(lab.ypos = cumsum(Proportions) - 0.3*Proportions)
+
+draw_plot_C84_B2 <- ggplot(C8_4_and_B2_py, aes(x = 2, y = Proportions, fill = C8_4 )) +
+  geom_bar(stat = "identity", color = "white") +
+  coord_polar(theta = "y", start = 0)+geom_text(aes(y = lab.ypos, 
+                                                    label = paste0(Number, " \n(",round(Proportions), "%)")), color = "white", size=6)+
+  theme_classic()+ylab("")+xlab("")+ggtitle("Participation in Informal Savings or Investement Groups by Gender of Resepondents")+
+  theme(axis.line = element_line(colour = "white"),plot.title = element_text(hjust=0.5,size = 20),axis.text = element_blank(), axis.ticks = element_blank(),
+        legend.title=element_text(size=18),legend.text = element_text(size = 16),legend.position = "bottom",
+        panel.spacing =unit(24, "lines"),strip.text= element_text(size = 18, colour = "black"),
+        panel.border = element_rect(color = "white", fill = NA, size = .1),
+        strip.background = element_rect(color = "white", size = 1))+
+  scale_fill_manual(values=c("#00A7CC","#F3B11C"))+labs(fill = "Participation:")+
+  xlim(.9, 2.5)+facet_wrap(.~B2, labeller = label_wrap_gen())
 
 
 

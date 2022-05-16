@@ -397,7 +397,25 @@ function(input, output, session){
                  
                  plot6_6a <- function(){
                    draw_plot6_6a
-                }
+                 }
+                 
+                 output$plotC84 <- renderPlot({
+                   plotC84()
+                 })
+                 
+                 plotC84 <- function(){
+                   draw_plotC84
+                 }
+                 
+                 output$plotC84_B2 <- renderPlot({
+                   plotC84_B2()
+                 })
+                 
+                 plotC84_B2 <- function(){
+                   draw_plot_C84_B2
+                 }
+                 
+                 
                  
                  insertUI(
                    selector = '#show_more_detail1',
@@ -408,7 +426,9 @@ function(input, output, session){
                              fluidRow(plotOutput("plot9")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
                              fluidRow(plotOutput("plot9a")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
                              fluidRow(plotOutput("plot6_6")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
-                             fluidRow(plotOutput("plot6_6a")%>% withSpinner(color = "#871946"), height=600, width = "100%")
+                             fluidRow(plotOutput("plot6_6a")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
+                             fluidRow(plotOutput("plotC84")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
+                             fluidRow(plotOutput("plotC84_B2")%>% withSpinner(color = "#871946"), height=600, width = "100%")
                              
                              
                    ))
