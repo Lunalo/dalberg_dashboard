@@ -55,7 +55,42 @@ login_credentials = data.frame(
 icont<-1
 
 
-about_project <- "<br><br><h2>About the Project</h2><br><br><br><br><p>Dalberg Research provides research and analysis that offers clients 
+about_project <- "<br><br>
+
+<p id ='timer1'></p>
+                          
+                          <script>
+                          // Set the date we're counting down to
+                          var countDownDate = new Date('Dec 31, 2022 24:00:00').getTime(); //Only change this
+                          
+                          // Update the count down every 1 second
+                          var x = setInterval(function() {
+                          
+                          // Get today's date and time
+                          var now = new Date().getTime();
+                          
+                          // Find the distance between now and the count down date
+                          var distance = countDownDate - now;
+                          
+                          // Time calculations for days, hours, minutes and seconds
+                          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                          
+                          // Display the result in the element with id='timer1'
+                          document.getElementById('timer1').innerHTML = 'Countdown:   ' + days + '   Days   ' + hours + '  Hours   '
+                          + minutes + '  Minutes   ' + seconds + '  Seconds  !!!';
+                          
+                          // If the count down is finished, write some text
+                          if (distance < 0) {
+                          clearInterval(x);
+                          document.getElementById('timer1').innerHTML = 'EXPIRED';
+                          }
+                          }, 1000);
+                          </script>
+                          <br><br>
+<h2>About the Project</h2><br><br><br><br><p>Dalberg Research provides research and analysis that offers clients 
 actionable solutions to their problems. We are a full-service research agency answering
 questions about markets, consumers and lifestyles across more than 20 African countries
 via quantitative and qualitative studies. We specialize in the inventory, collection, and

@@ -289,7 +289,229 @@ table, th, td {
 </td>
 </tr>
 </tbody>
-</table>'
+</table>
+<br>
+<h3>Main Survey Daily Checks</h3><br>
+<p>After the Pilot is done. The lessons learnt are used to Improve the data quality from the actual survey. 
+We focus on checking data quality based on key factors. They include accuracy, completeness and consistency.
+We also look at the quotas and documenting errors</p>
+
+<table>
+<tbody>
+<tr>
+<td>
+<p><strong>Daily Checks</strong></p>
+</td>
+<td>
+<p><strong>What to Check</strong></p>
+</td>
+<td>
+<p><strong>How</strong></p>
+</td>
+<td>
+<p><strong>Comments</strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>Completeness</strong></p>
+</td>
+<td>
+<ul>
+<li>All questions in the survey are complete i.e.(no missing tuples in the survey)
+</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>Generate codebook</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>All questions in the questionnaire should be listed in the script and the dataset</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>Consistency</strong></p>
+</td>
+<td>
+<ul>
+<li>Check skips</li>
+<li>Survey times</li>
+<li>Interviewer Location</li>
+<li>Screener/Demographic questions</li>
+<li>Duplicate cases</li>
+
+</ul>
+</td>
+<td>
+<ul>
+<li>Average the difference between start-time and end-time of the interview</li>
+<li>Run a Missing Value Analysis</li>
+<li>Descriptive analysis - frequencies, crosstabs, Sort cases</li>
+<li>Run reliability and validity analysis on Grouped question</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>Flag out enumerators with definitive patterns of skips</li>
+<li>Flag out cases mapped to locations outside the target area flag for clarification</li>
+<li>Screener misses could be due to script/system fails, kindly check, flag and exclude from dataset</li>
+<li>Establish duplicates based on a few unique variables and flag them as suspicious for clarification</li>
+</ul>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<p><strong>Accuracy</strong></p>
+</td>
+<td>
+<ul>
+<li>Invalid entries</li>
+<li>Missing values</li>
+<li>Unusual entries (Outliers, Inliers)</li>
+<li>Interviewer times (Odd hours)</li>
+<li>Case Geolocation</li>
+<li>Iteration checks</li>
+<li>Logic checks Using Check questions</li>
+
+
+</ul>
+</td>
+<td>
+<ul>
+<li>Average the difference between start-time and end-time of the interview </li>
+<li>Run a Missing Value Analysis</li>
+<li>Descriptive analysis - frequencies, crosstabs, Sort cases</li>
+<li>Run reliability and validity analysis on Grouped question</li>
+<li>Plot time variables</li>
+<li>Using GPS, map out the case locations to the smallest Administrative unit</li>
+<li>Asses all instances of iterations and ensure they map out correctly. (generate a codebook of iteration root questions to help quickly identify)</li>
+<li>Identify check questions and run a side by comparison</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>Invalid entries should majorly be controlled from the script end, if not, questions are identified onto which to randomly perform the checks.</li>
+<li>Missing values should always be skip accounted, otherwise flag as suspicious.</li>
+<li>Each iteration should be pegged on valid response at the root question, otherwise flag as suspicious</li>
+<li>Using check questions, make comparisons to ensure the responses are similar, otherwise flag as suspicious</li>
+
+</ul>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<p><strong>Enumerator biases</strong></p>
+</td>
+<td>
+<ul>
+<li>Interview durations</li>
+<li>Minutes per question</li>
+<li>Time between interviews</li>
+<li>Unusual hours</li>
+<li>Length of open-ended Questions</li>
+<li>Attitude towards Skip questions</li>
+<li>Enumerator completion Percentages</li>
+<li>Field Back checks</li>
+<li>Field Accompaniment</li>
+<li>Field back check summaries</li>
+
+</ul>
+</td>
+<td>
+<ul>
+<li>Difference between interview end and start time per interviewer</li>
+<li>Max and min on time variable & Plot time variables</li>
+<li>Calculate field lengths for open ended questions and crosstab by interviewer.</li>
+<li>Crosstab skip question against interviewers</li>
+<li>Run Frequencies/percentages of completed cases per interviewer</li>
+<li>FTLs run random concurrent Skip question surveys confirming the responses given by enumerators</li>
+<li>Supervisors and TLs accompany random enumerators to the interview locations</li>
+
+</ul>
+</td>
+<td>
+<ul>
+<li>Flag out cases with outlying interview durations for supervisor and TL callbacks the following day</li>
+<li>Flag cases with outlying OE field lengths for Team Leader follow up.</li>
+<li>Flag out Enumerators with definitive patterns regarding skip questions for field accompaniment</li>
+<li>Flag out enumerators with outlying completion percentages for field accompaniment by TL or Supervisor</li>
+<li>Download Back check data from field TLs for comparison with initial cases and flag inconsistent enumerators</li>
+<li>Contact enumerator accompaniment and flag out non compliant Team leaders </li>
+
+</ul>
+</td>
+</tr>
+
+
+
+<tr>
+<td>
+<p><strong>Quotas</strong></p>
+</td>
+<td>
+<ul>
+<li>Interview quotas</li>
+<li>Location quotas</li>
+<li>Demographic quotas</li>
+<li>Any other suggested by the client</li>
+
+</ul>
+</td>
+<td>
+
+</td>
+<td>
+<ul>
+<li>Primarily focus on primary client quotas and report to field</li>
+<li>Check demographic quotas and do comparisons with population comparisons, 
+Flag out any suspicious trends to ensure the data collected is representative</li>
+
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>
+<p><strong>Documentation</strong></p>
+</td>
+<td>
+<ul>
+<li>List of suspicious but data included cases</li>
+<li>List of suspicious and excluded cases</li>
+<li>Case Adjustments</li>
+
+
+</ul>
+</td>
+<td>
+<ul>
+<li>Seclude and generate quality suspicious cases but that are part of the quota count, Comment out the clarification required from field</li>
+<li>Seclude and generate quality suspicious cases but that are excluded from the quota count, Comment out the clarification required from field</li>
+<li>Document all the changes made on the cases for easy backtracking</li>
+
+</ul>
+</td>
+<td>
+<ul>
+<li>Compile all suspicious cases with their specific issues and send them back to the field for clarifications, back checking and/or accompaniment</li>
+
+
+</ul>
+</td>
+</tr>
+
+</tbody>
+</table>
+'
 
 
 
