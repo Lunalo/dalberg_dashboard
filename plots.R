@@ -702,17 +702,19 @@ draw_plot6_6 <- ggplot(C13_data_plot, aes(y = Number, x = reorder(C13, Number)))
                                                                                                                                                                   label = paste0(Number, " \n(",proportions, "%)")),size=6,hjust = 0)
 
 
-C13_data_stack <- dat%>% group_by(C13, B2) %>% summarise(Number = n())
-C13_data_plot_stack<- C13_data_stack%>%group_by(C13)%>%mutate(proportions =round(100*(Number/sum(Number)),0))
+C13_data_stack <- dat%>% group_by(B2, C13) %>% summarise(Number = n())
+C13_data_plot_stack<- C13_data_stack%>%group_by(B2)%>%mutate(proportions =round(100*(Number/sum(Number)),0))
 
 
-draw_plot6_6a <- ggplot(C13_data_plot_stack, aes(y = proportions, x = C13, fill= B2)) + geom_bar(stat = "identity") + 
-  theme_classic() + coord_flip()+theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
+draw_plot6_6a <- ggplot(C13_data_plot_stack, aes(y = proportions, x = B2, fill= C13)) + geom_bar(stat = "identity", position = position_dodge()) + 
+  theme_classic() + theme(axis.ticks = element_blank(),
  plot.title = element_text(hjust = 0.5,size = 20),
- axis.text.y = element_text(size = 16, colour = "black"), 
- legend.position = "none") + xlab("") + ylab("")+scale_fill_manual(values=c("#00A7CC","#F3B11C"))+
+ axis.text = element_text(size = 16, colour = "black"), 
+ legend.position = "bottom") + xlab("") + ylab("")+
   ggtitle("Respodents Breakdown by their Saving Behaviour and Gender") + geom_text(aes(y= proportions, 
- label = paste0(Number, " \n(",proportions, "%)")),size=6,position = position_stack(vjust = .75),colour ="white")
+ label = paste0(Number, "(",proportions, "%)")),size=6, position = position_dodge(width = .9),vjust = 0,colour ="black")+labs(fill = "Saving Behaviour:")
+
+
 
 
 

@@ -216,6 +216,13 @@ function(input, output, session){
                    
                        
       ),
+  
+  tabItem(tabName = "DataQualityControl",
+          
+          fluidRow(box(HTML(Introduction), width = "100%"))
+          ),
+  
+  
       
       tabItem(tabName = "Dataset",
                        

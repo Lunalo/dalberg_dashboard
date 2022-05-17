@@ -10,6 +10,7 @@ library(sf);library(reshape2);library(knitr);library(tinytex);library(haven);lib
 
 #The Order Matters
 source("dataimport.R");source("plots.R");source("gis.R")
+source("DataQualityChecks.R")
 
 #########################Lo-gin Page
 loginpage <- div(id = "loginpage", style = "width: 500px; max-width: 100%; margin: 0 auto; padding: 20px;position: absolute;top: 50%;left: 60%;
@@ -70,4 +71,6 @@ unprecedented insights.</p><br><br>"
 KeySurveyQuestionsIntro <- "<h2>Introduction</h2><br><p>The section captures details on Key performance Indicators, outcomes and objectives of the survey. We start of by assessing the outcome
 variables. We use various approaches to display insights. The approaches include bar, line, pie, tables, cards and more. Similar approach
  is applied for to the outcomes and objectives of the survey</p>"
+
+
 
