@@ -57,7 +57,7 @@ icont<-1
 
 about_project <- "<br><br>
 
-<p id ='timer1'></p>
+<p id ='timer2'></p>
                           
                           <script>
                           // Set the date we're counting down to
@@ -78,8 +78,8 @@ about_project <- "<br><br>
                           var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                           var seconds = Math.floor((distance % (1000 * 60)) / 1000);
                           
-                          // Display the result in the element with id='timer1'
-                          document.getElementById('timer1').innerHTML = 'Countdown:   ' + days + '   Days   ' + hours + '  Hours   '
+                          // Display the result in the element with id='timer2'
+                          document.getElementById('timer2').innerHTML = 'Countdown:   ' + days + '   Days   ' + hours + '  Hours   '
                           + minutes + '  Minutes   ' + seconds + '  Seconds  !!!';
                           
                           // If the count down is finished, write some text
@@ -89,7 +89,7 @@ about_project <- "<br><br>
                           }
                           }, 1000);
                           </script>
-                          <br><br>
+                          <br><br> </script><style> #timer2{padding-left: 50px;text-align: right; background-color:white;font-family: Lato;font-weight:bold; font-size: 17px; color: #00a7cc;}</style>
 <h2>About the Project</h2><br><br><br><br><p>Dalberg Research provides research and analysis that offers clients 
 actionable solutions to their problems. We are a full-service research agency answering
 questions about markets, consumers and lifestyles across more than 20 African countries

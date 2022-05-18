@@ -717,4 +717,3 @@ draw_plot6_6a <- ggplot(C13_data_plot_stack, aes(y = proportions, x = B2, fill= 
 
 
 
-
