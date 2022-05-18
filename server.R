@@ -69,7 +69,41 @@ function(input, output, session){
         
       }
       
-      tabItems(tabItem(tabName = "About", class = "active",box(HTML(about_project), downloadButton("aboutdoc", "Download Detailed Description", 
+      tabItems(tabItem(tabName = "About", class = "active",box(HTML(paste0("<br><br>
+
+<p id ='timer2'></p>
+                          
+                          <script>
+                          // Set the date we're counting down to
+                          var countDownDate = new Date('Dec 31, 2022 24:00:00').getTime(); //Only change this
+                          
+                          // Update the count down every 1 second
+                          var x = setInterval(function() {
+                          
+                          // Get today's date and time
+                          var now = new Date().getTime();
+                          
+                          // Find the distance between now and the count down date
+                          var distance = countDownDate - now;
+                          
+                          // Time calculations for days, hours, minutes and seconds
+                          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                          
+                          // Display the result in the element with id='timer2'
+                          document.getElementById('timer2').innerHTML = 'Countdown:   ' + days + '   Days   ' + hours + '  Hours   '
+                          + minutes + '  Minutes   ' + seconds + '  Seconds  !!!';
+                          
+                          // If the count down is finished, write some text
+                          if (distance < 0) {
+                          clearInterval(x);
+                          document.getElementById('timer2').innerHTML = 'Project Endeded';
+                          }
+                          }, 1000);
+                          </script>
+                          <br><br> </script><style> #timer2{padding-left: 50px;text-align: right; background-color:white;font-family: Lato;font-weight:bold; font-size: 17px; color: #00a7cc;}</style>", about_project)), downloadButton("aboutdoc", "Download Detailed Description", 
                                                                                                   icon = icon("download",lib = "font-awesome"), class = "button"), class = "homepage", height = "100%", width = "100%"), tags$style(
         ".homepage {background-color:white;font-size:20px;font-weight:bold
         width: 100%; min-height: 100vh;text-align:center;color:black;}")),
@@ -82,41 +116,10 @@ function(input, output, session){
                                         infoBoxOutput("value4", width = 3) 
                                ),
                                
-                              fluidRow(column = 4, box(downloadButton("field", "Generate report for field updates", 
+                              fluidRow(box(downloadButton("field", "Generate report for field updates", 
                               icon = icon("download",lib = "font-awesome"), class = "button"), 
                               tags$head(tags$style(".button{background-color:#881946 !important;color: white !important;}")) 
-                              ), column = 8, box(HTML("<p id ='timer'></p>
-                                                                  
-                                                                  <script>
-                                                                  // Set the date we're counting down to
-                              var countDownDate = new Date('Apr 30, 2022 24:00:00').getTime(); //Only change this section
-                              
-                              // Update the count down every 1 second
-                              var x = setInterval(function() {
-                              
-                              // Get today's date and time
-                              var now = new Date().getTime();
-                              
-                              // Find the distance between now and the count down date
-                              var distance = countDownDate - now;
-                              
-                              // Time calculations for days, hours, minutes and seconds
-                              var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                              var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                              
-                              // Display the result in the element with id='timer'
-                              document.getElementById('timer').innerHTML = 'Countdown:   ' + days + '   Days   ' + hours + '  Hours   '
-                              + minutes + '  Minutes   ' + seconds + '  Seconds  !!!';
-                              
-                              // If the count down is finished, write some text
-                              if (distance < 0) {
-                                clearInterval(x);
-                                document.getElementById('timer').innerHTML = 'EXPIRED';
-                              }
-                              }, 1000);
-                              </script><style> #timer{padding-left: 50px; background-color:white;font-family: Lato;font-weight:bold; font-size: 20px; color: #881946;}</style>")))
+                              ))
                        
                              
                                 
