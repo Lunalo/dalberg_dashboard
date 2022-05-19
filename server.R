@@ -108,28 +108,13 @@ function(input, output, session){
         ".homepage {background-color:white;font-size:20px;font-weight:bold
         width: 100%; min-height: 100vh;text-align:center;color:black;}")),
       
-      tabItem(tabName = "ActivitiesUpdates",
-                       
-                               fluidRow(infoBoxOutput("value1", width = 3) %>% withSpinner(color = "#871946"),
-                                        infoBoxOutput("value2", width = 3) %>% withSpinner(color = "#871946"),
-                                        infoBoxOutput("value3", width = 3) %>% withSpinner(color = "#871946"),
-                                        infoBoxOutput("value4", width = 3) 
-                               ),
-                               
-                              fluidRow(box(downloadButton("field", "Generate report for field updates", 
-                              icon = icon("download",lib = "font-awesome"), class = "button"), 
-                              tags$head(tags$style(".button{background-color:#881946 !important;color: white !important;}")) 
-                              ))
-                       
-                             
-                                
-                         ),
+ 
                tabItem(tabName = "SurveyProgress",
                        fluidRow(HTML("<h2>Daily and Cumulative Updates of Data Collection</h2><br><br><p>This section provides both the daily and cumulative updates of data collection.
                         The updates entail the trends,targets vs achievements, map updates, quotas and more. The trainds entail both cumulative and daily. Cumulative provides cumulative updates for data
                                      collection to date. Daily trends provides insights of data collected for each day. Both trends are also dissagregated by useful categories such as gender of respondents
                                      and urban rural. Achievement provides breakdown based on demographic variables.Maps provides insights on specific areas the data was collected and quotas provides the updates on targets, achieved and deficits</p><br>"),width = "80%"),
-                       fluidRow(HTML("<h2>Trends of Data Collection</h2>")),
+                       fluidRow(HTML("<h2>Trends of Data Collection</h2>"), tags$head(tags$style(".button{background-color:#881946 !important;color: white !important;}"))),
                        fluidRow(plotOutput("cump1"), height=450, width = "80%"),
                        
                        fluidRow(plotOutput("cump2"), height=450, width = "80%"),
@@ -189,7 +174,24 @@ function(input, output, session){
   
   tabItem(tabName = "DataQualityControl",
           
-          fluidRow(box(HTML(Introduction), width = "100%"))
+          fluidRow(box(HTML(Introduction), width = "100%")),
+          div( id = 'message_to_show_more3',
+               tags$hr(),
+               tags$h3( "Click on 'Show Metrics' button to view Data Quality Control Metrics"),
+               actionButton("btn_show_more3",
+                            paste0('Show Metrics'),
+                            icon = icon('chevron-circle-down'),
+                            style='padding-top:3px; padding-bottom:3px;padding-left:5px;padding-right:5px;font-size:120%;color:#881946;'
+               ) 
+          ),
+          
+          div( id = "show_more_detail3" ) ,
+          
+          shinyjs::hidden( div( id = "load_more_message3",
+                                tags$hr(),
+                                tags$h1("Loading...", align = "center")  )
+          )
+          
           ),
   
   
@@ -217,58 +219,7 @@ function(input, output, session){
     }})
   
   
-  draw_value1 <- function(){
-     formatC(nrow(dat),format = "f", digits = 0, big.mark = ",")
-  }
   
-  
-  output$value1<- renderInfoBox({
-    infoBox(
-      "Respondents",draw_value1() , icon = icon("users", lib = "font-awesome"),
-      fill = TRUE,color = "blue", width = 3
-    )
-  })
-  
-  
-  draw_value2 <- function(){
-    # phone <- table(dat$C5_10)
-    smartPhones <- 2000
-    formatC(smartPhones,format = "f", digits = 0, big.mark = ",")
-  }
-  
-  output$value2<- renderInfoBox({
-    infoBox(
-      "Error Logs Sent",draw_value2(), icon = icon("times", lib = "font-awesome"),
-      fill = TRUE,color = "blue",width = 3
-    )
-  })
-  
-  
-  
-  draw_value3 <- function(){
-    bank <- 1021
-    formatC(bank,format = "f", digits = 0, big.mark = ",")
-  }
-  
-  output$value3<- renderInfoBox({
-    infoBox(
-      "Corrected error logs", draw_value3(), icon = icon("check-circle", lib = "font-awesome"),
-      fill = TRUE,color = "blue", width = 3
-    )
-  })
-  
-
-  draw_value4 <- function(){
-    bank <- 30
-    formatC(bank,format = "f", digits = 0, big.mark = ",")
-   }
-  
-  output$value4<- renderInfoBox({
-    infoBox(
-      "Callbacks",draw_value4() , icon = icon("phone", lib = "font-awesome"),
-      fill = TRUE,color = "blue",width = 3
-    )
-  })
   
   ###################End of Infoboxes
   
@@ -480,9 +431,6 @@ function(input, output, session){
     draw_plot6_4
   }
   
-
-  
-  
   output$plot6_2 <- renderPlot({
     plot6_2()
   })
@@ -498,9 +446,6 @@ function(input, output, session){
   plot6_5 <- function(){
     draw_plot6_5
   }
-  
-  
-  
   
   output$plot6_1  <-renderPlot({
     plot6_1()
@@ -519,7 +464,6 @@ function(input, output, session){
     }
     
   
-    
     cump1 <- function(){
       cumplot_Overall
     } 
@@ -639,11 +583,11 @@ function(input, output, session){
               options = list(
                 searching = TRUE,
                 autoWidth = FALSE,
-                rownames = FALSE,
                 scrollX = TRUE,
                 paging =TRUE,
                 fixedHeader = TRUE,
-                class = 'cell-border stripe'))
+                class = 'cell-border stripe'), rownames = FALSE)%>% formatStyle("Number",
+                background = styleColorBar(range(enum_tab_func()$Number),'lightgreen'))
   })
   
   
@@ -652,15 +596,11 @@ function(input, output, session){
               options = list(
                 searching = TRUE,
                 autoWidth = FALSE,
-                rownames = FALSE,
-                scroller = FALSE,
                 scrollX = TRUE,
                 paging =TRUE,
-                pageLength=6,
                 fixedHeader = TRUE,
-                class = 'cell-border stripe'),
-              selection = "multiple",
-              filter="top")
+                class = 'cell-border stripe'),rownames = FALSE)%>%formatStyle("Number",
+                background = styleColorBar(range(respondent_tab_func()$Number),'lightgreen'))
   })
   
   
@@ -819,6 +759,120 @@ function(input, output, session){
   }
   
   
+  
+  observeEvent(input$btn_show_more3,
+               {
+                 
+                 ## disable the buttone ---
+                 shinyjs::disable("btn_show_more3")
+                 ## --- hide message to show more -----
+                 shinyjs::hide(id = 'message_to_show_more3')
+                 ## --- show loading message ---
+                 shinyjs::show( id = "load_more_message3" )
+                 
+                 # 4. Treemap key export commodity and services ------------------------------------
+                 withProgress(message = 'Loading...', value = (i_prog-1)/tot_step, {
+                   # Increment the progress bar, and update the detail text.
+                   incProgress( i_prog/tot_step, detail = NULL)
+                   ##Sys.sleep(0.1)
+                   
+                 })
+                 i_prog <- i_prog + 1
+                 
+                 
+                 
+                 draw_callbacks <- function(){
+                   formatC(sum(QCSummary$Callbacks),format = "f", digits = 0, big.mark = ",")
+                 }
+                 
+                 
+                 output$callbacks<- renderInfoBox({
+                   infoBox(
+                     "Callbacks",draw_callbacks() , icon = icon("phone", lib = "font-awesome"),
+                     fill = TRUE,color = "blue", width = 3
+                   )
+                 })
+                 
+                 
+                 
+                 draw_QuestionsQC <- function(){
+                    formatC(sum(QCSummary$`Questions Triggering QC Logs`),format = "f", digits = 0, big.mark = ",")
+                 }
+                 
+                 output$QuestionsQCLogs<- renderInfoBox({
+                   infoBox(
+                     "Questions Triggering QC Logs",draw_QuestionsQC(), icon = icon("times", lib = "font-awesome"),
+                     fill = TRUE,color = "blue",width = 3
+                   )
+                 })
+                 
+                 
+                 
+                 draw_EnumQC <- function(){
+                   formatC(sum(QCSummary$`Enumerators with Most QC Logs`),format = "f", digits = 0, big.mark = ",")
+                 }
+                 
+                 
+                 output$EnumeratorsQCLogs<- renderInfoBox({
+                   infoBox(
+                     str_wrap("Enumerators with Most QC Logs"),draw_EnumQC() , icon = icon("users", lib = "font-awesome"),
+                     fill = TRUE,color = "blue", width = 3
+                   )
+                 })
+                 
+           
+                 draw_ResovedQC <- function(){
+                   bank <- 1021
+                   formatC(sum(QCSummary$`QC Logs Resolved`),format = "f", digits = 0, big.mark = ",")
+                 }
+                 
+                 output$QCLogsResoved<- renderInfoBox({
+                   infoBox(
+                     "QC Logs Resolved", draw_ResovedQC(), icon = icon("check-circle", lib = "font-awesome"),
+                     fill = TRUE,color = "blue", width = 3
+                   )
+                 })
+      
+                 
+                 QCSummary_tab <- function(){
+                   QCSummary
+                 }
+                 
+                 
+                 
+                 output$QCSummary = DT::renderDataTable({
+                   datatable(QCSummary_tab(),extensions = c("Scroller"), 
+                             options = list(
+                               searching = TRUE,
+                               autoWidth = FALSE,
+                               scrollX = TRUE,
+                               paging =TRUE,
+                               fixedHeader = TRUE,
+                               class = 'cell-border stripe'),
+                             rownames = FALSE)%>%formatStyle(names(QCSummary_tab()[,2:4]),
+                               background = styleColorBar(range(QCSummary_tab()[,2:4]),'Red'))%>%formatStyle("QC Logs Resolved",
+                                background = styleColorBar(range(QCSummary_tab()[,5]),'Green'))
+                 })
+                 
+                 
+                 insertUI(
+                   selector = '#show_more_detail3',
+                   ui = div( id = 'conents_for_more_detail3',
+                      fluidRow(HTML("<h2>Data Quality Control Summaries</h2><br>")),
+                      fluidRow(infoBoxOutput("callbacks", width = 6) %>% withSpinner(color = "#871946"),
+                                      infoBoxOutput("QuestionsQCLogs", width = 6) %>% withSpinner(color = "#871946")),
+                               fluidRow(infoBoxOutput("EnumeratorsQCLogs", width = 6) %>% withSpinner(color = "#871946"),
+                                      infoBoxOutput("QCLogsResoved", width = 6)) ,
+                      fluidRow(HTML("<h2>Data Quality Control Metrics by Region</h2><br>")),       
+                       fluidRow(title = h1(strong("Data Quality SUmmary")),DT::dataTableOutput("QCSummary") %>%
+                                        withSpinner(color = "#871946"),height = 800, width=100),
+                             
+                         
+                   ))
+                 shinyjs::hide( id = "load_more_message3" )
+                 
+                 
+               })
   
  
   output$selected_var <- renderText({

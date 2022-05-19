@@ -2,7 +2,10 @@
 
 dat <- read_sav("datasets/Kenya_BMGF_Data.sav")
 target <- read.csv("datasets/target.csv")
+QCSummary <- read.csv("datasets/QCSumary.csv")
 target_gender <- read.csv("datasets/targetGender.csv")
+
+names(QCSummary)<- c("County", "Callbacks", "Questions Triggering QC Logs", "Enumerators with Most QC Logs", "QC Logs Resolved")
 
 dat <- as_factor(dat)
 
