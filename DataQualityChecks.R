@@ -1,7 +1,7 @@
 
 Introduction <- '<h2>Introduction</h2><br>
 <p>This section aims to outline various standardized approaches we use to ensure quality data is captured in the field</p><br>
-<h3>Pilot Data</h3><br>
+<!--<h3>Pilot Data</h3><br>
 <ul "list-style-type:circle;">
   <li>Pilot data is the result of conducting a pilot study that is a preliminary small-scale study that is conducted in order to decide how best to conduct a large-scale research project.
 </li>
@@ -289,13 +289,18 @@ table, th, td {
 </td>
 </tr>
 </tbody>
-</table>
+</table>-->
+
 <br>
 <h3>Main Survey Daily Checks</h3><br>
 <p>After the Pilot is done. The lessons learnt are used to Improve the data quality from the actual survey. 
 We focus on checking data quality based on key factors. They include accuracy, completeness and consistency.
 We also look at the quotas and documenting errors</p>
-
+<style>
+table, th, td {
+  border: 3px inset;
+}
+</style>
 <table>
 <tbody>
 <tr>

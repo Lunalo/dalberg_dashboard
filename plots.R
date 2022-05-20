@@ -654,7 +654,7 @@ draw_achieved_plot2 <- ggplot(achieved_bar2, aes(y = value, x = reorder(Intervie
 C84_data <- dat%>% group_by(C8_4) %>% summarise(Number = n())
 C84_data_plot<- C84_data%>%mutate(proportions =round(100*(Number/sum(Number)),0))
 
-C84_data_plot_max <- max(C84_data_plot$Number)
+C13_data_plot_max <- max(C84_data_plot$Number)
 
 draw_plotC84 <- ggplot(C84_data_plot, aes(y = Number, x = reorder(C8_4, Number), fill=C8_4)) + geom_bar(stat = "identity") + 
   theme_classic() + coord_flip() +scale_y_continuous(limits = c(0, C84_data_plot_max+round(C13_data_plot_max*0.05)))+theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
