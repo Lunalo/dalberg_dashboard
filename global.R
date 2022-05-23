@@ -56,16 +56,18 @@ icont<-1
 
 
 about_project <- "
-<h2>About the Project</h2><br><br><br><br><p>Dalberg Research provides research and analysis that offers clients 
-actionable solutions to their problems. We are a full-service research agency answering
-questions about markets, consumers and lifestyles across more than 20 African countries
-via quantitative and qualitative studies. We specialize in the inventory, collection, and
-analysis of primary research data for businesses, NGOs, governments and other institutions.
-Dalberg Research has 21 years of experience in primary research and has a strong commitment 
-to obtaining the information required to fuel sustainable and inclusive growth across Africa.
-Dalberg Research has also developed LOCAN, Kenya's most comprehensive geo-spatial research database
-with more than 30 million data points from more than 150 sources. Results from LOCAN are used to generate
-unprecedented insights.</p><br><br>"
+<br><br><br><h2>Human Account</h2><br><p>Nearly three billion people are underserved by
+the financial sector globally, many lack access to a robust set of high quality services
+essential for financial health. How can we better account for their needs, aspirations,
+and financial strategies to create more compelling services that improve their financial health?</p>
+<br>
+<p>Financial service providers, mobile money and network operators in emerging markets have
+a historic opportunity to acquire and serve almost billions of un- or underserved customers
+in Africa and Asia with innovative, low-cost, digital products and services that improve those customers’ lives.</P>
+<br>
+<p>With behavioral and psychometric data on 34 segments representing 1.98 billion people across 6 countries, 
+The Human Account is a breakthrough, public resource with the potential to significantly shift how
+financial service providers understand, invest in, design for, and engage the underserved.</p><br><br><br><br><br><br>"
 
 
 

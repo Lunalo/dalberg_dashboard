@@ -305,7 +305,8 @@ trend_Overall <- dat %>%group_by(Q_2)%>%summarise(n=n())%>%filter(year(Q_2)!=201
 achieved_interviews <- nrow(dat)
 target_interviews <- sum(target_gender$Target)
 deficit <- target_interviews - achieved_interviews
-
+perc_def <- round(deficit/target_interviews*100,0)
+perc_achieved <- round(achieved_interviews/target_interviews*100,0)
 
 cumplot_Overall <- dat %>%group_by(Q_2)%>%summarise(n=n())%>%filter(year(Q_2)!=2015)%>%mutate(cumsum = cumsum(n))%>%
   ggplot(aes(x=Q_2, y=cumsum)) +

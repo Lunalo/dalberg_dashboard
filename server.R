@@ -103,17 +103,20 @@ function(input, output, session){
                           }
                           }, 1000);
                           </script>
-                          <br><br> </script><style> #timer2{padding-left: 50px;text-align: right; background-color:white;font-family: Lato;font-weight:bold; font-size: 17px; color: #00a7cc;}</style>", about_project)), downloadButton("aboutdoc", "Download Detailed Description", 
-                                                                                                  icon = icon("download",lib = "font-awesome"), class = "button"), class = "homepage", height = "100%", width = "100%"), tags$style(
+                          <br><br> </script><style> #timer2{padding-left: 50px;text-align: right; background-color:white;font-family: Lato;font-weight:bold; font-size: 17px; color: #00a7cc;}</style>", about_project)), tags$style(
         ".homepage {background-color:white;font-size:20px;font-weight:bold
-        width: 100%; min-height: 100vh;text-align:center;color:black;}")),
+        width: 100%; min-height: 100vh;text-align:center;color:black;}"), width="100%", height="100%")),
       
  
                tabItem(tabName = "SurveyProgress",
-                       fluidRow(HTML("<h2>Daily and Cumulative Updates of Data Collection</h2><br><br><p>This section provides both the daily and cumulative updates of data collection.
-                        The updates entail the trends,targets vs achievements, map updates, quotas and more. The trainds entail both cumulative and daily. Cumulative provides cumulative updates for data
-                                     collection to date. Daily trends provides insights of data collected for each day. Both trends are also dissagregated by useful categories such as gender of respondents
-                                     and urban rural. Achievement provides breakdown based on demographic variables.Maps provides insights on specific areas the data was collected and quotas provides the updates on targets, achieved and deficits</p><br>"),width = "80%"),
+                       fluidRow(HTML("<h2>Daily and Cumulative Updates of Data Collection</h2><br><br><p>This section provides daily updates
+                                     of survey progress. The updates entail the targets, achievements, deficits, map of areas where interview
+                                     was achieved, demographic and regional quotas. The daily trends provide insights of data collected for
+                                     each day. The data are disaggregated by useful categories such as gender of respondents and urban rural.
+                                     Maps provides insights on specific areas the data was collected, and quotas provides the updates on 
+                                     targets, achieved and deficits.</p><br>"),width = "80%"),
+                       fluidRow(infoBoxOutput("TargetInterviews", width = 4),infoBoxOutput("Achieved_surveyProg", width = 4)
+                                ,infoBoxOutput("Deficit_surveyProg", width = 4)),
                        fluidRow(HTML("<h2>Trends of Data Collection</h2>"), tags$head(tags$style(".button{background-color:#881946 !important;color: white !important;}"))),
                        fluidRow(plotOutput("cump1"), height=450, width = "80%"),
                        
@@ -221,7 +224,43 @@ function(input, output, session){
   
   
   
-  ###################End of Infoboxes
+  target_surv_prog <- function(){
+    formatC(target_interviews,format = "f", digits = 0, big.mark = ",")
+  }
+  
+  
+  output$TargetInterviews<- renderInfoBox({
+    infoBox(
+      "Target",target_surv_prog() , icon = icon("users", lib = "font-awesome"),
+      fill = TRUE,color = "blue", width = 3
+    )
+  })
+  
+  
+  Achieved_surv_prog <- function(){
+    paste0(formatC(target_interviews,format = "f", digits = 0, big.mark = ","), " (",perc_achieved,"%)")
+  }
+  
+  
+  output$Achieved_surveyProg<- renderInfoBox({
+    infoBox(
+      "Achieved",Achieved_surv_prog() , icon = icon("users", lib = "font-awesome"),
+      fill = TRUE,color = "blue", width = 3
+    )
+  })
+  
+  
+  Deficit_surv_prog <- function(){
+    paste0(formatC(deficit,format = "f", digits = 0, big.mark = ","), " (",perc_def,"%)")
+  }
+  
+  
+  output$Deficit_surveyProg<- renderInfoBox({
+    infoBox(
+      "Deficit",Deficit_surv_prog() , icon = icon("users", lib = "font-awesome"),
+      fill = TRUE,color = "blue", width = 3
+    )
+  })
   
   
   
