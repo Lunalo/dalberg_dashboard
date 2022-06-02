@@ -49,7 +49,7 @@ dalbergBody <- dashboardBody(
                             text-align: justfied;
                             font-family: "Lato";
                             color: black;
-                            font-size: 120%;
+                            font-size: 150%;
                             margin-left: 20px;
                             }
                             
@@ -65,8 +65,8 @@ dalbergBody <- dashboardBody(
                             .skin-blue .main-header .logo:hover{
                             background-color: #DDDDDD;
                             }
-                  
-                      
+                            
+                       
                             /* navbar (rest of the header) */
                             .skin-blue .main-header .navbar {
                             background-color:white;

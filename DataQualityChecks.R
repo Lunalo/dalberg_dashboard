@@ -1,6 +1,12 @@
 
 Introduction <- '<h2>Introduction</h2><br>
-<p>This section aims to outline various standardized approaches we use to ensure quality data is captured in the field</p><br>
+<p>This section displays analysis of the quality of the survey. 
+The analysis covers different components of quality data control 
+including completeness, consistency, accuracy, validity, and timeliness
+of the data. The main goal of this section is to show the trustworthiness of the data being collected</p><br>
+
+<p>The next part gives summaries of the steps taken to resolve data quality issues. </p>
+
 <!--<h3>Pilot Data</h3><br>
 <ul "list-style-type:circle;">
   <li>Pilot data is the result of conducting a pilot study that is a preliminary small-scale study that is conducted in order to decide how best to conduct a large-scale research project.
@@ -289,7 +295,7 @@ table, th, td {
 </td>
 </tr>
 </tbody>
-</table>-->
+</table>
 
 <br>
 <h3>Main Survey Daily Checks</h3><br>
@@ -515,7 +521,7 @@ Flag out any suspicious trends to ensure the data collected is representative</l
 </tr>
 
 </tbody>
-</table>
+</table>-->
 '
 
 

@@ -2,6 +2,11 @@
 
 dat <- read_sav("datasets/Kenya_BMGF_Data.sav")
 target <- read.csv("datasets/target.csv")
+Enum_QC <- read.csv("datasets/Enum_QC.csv")
+
+names(Enum_QC) <- c("Enumerator", "Outliers","Skipping Problems", "Change of Locations", "Duration of Interview", "Time between Interviews
+")
+
 QCSummary <- read.csv("datasets/QCSumary.csv")
 target_gender <- read.csv("datasets/targetGender.csv")
 names(QCSummary)<- c("County", "Callbacks", "Questions Triggering QC Logs", "Enumerators with Most QC Logs", "QC Logs Resolved")

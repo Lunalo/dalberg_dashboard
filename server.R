@@ -118,26 +118,41 @@ function(input, output, session){
                        fluidRow(infoBoxOutput("TargetInterviews", width = 4),infoBoxOutput("Achieved_surveyProg", width = 4)
                                 ,infoBoxOutput("Deficit_surveyProg", width = 4)),
                        fluidRow(HTML("<h2>Trends of Data Collection</h2>"), tags$head(tags$style(".button{background-color:#881946 !important;color: white !important;}"))),
+                       
+                       fluidRow(plotOutput("trendp1")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
+                       
+                       fluidRow(HTML("<h2>Trends by Urban Rural</h2>")),
+                       fluidRow(plotOutput("trendp2")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
+                       
+                       fluidRow(HTML("<h2>Trends by Gender</h2>")),
+                       fluidRow(plotOutput("trendp3")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
+                       
+                       fluidRow(HTML("<h2>Cumulative Responses</h2>")),
                        fluidRow(plotOutput("cump1"), height=450, width = "80%"),
                        
+                       fluidRow(HTML("<h2>Cumulative Responses by Urban Rural</h2>")),
                        fluidRow(plotOutput("cump2"), height=450, width = "80%"),
+                       
+                       fluidRow(HTML("<h2>Cumulative Responses by Gender</h2>")),
                        fluidRow(plotOutput("cump3"), height=450, width = "80%"),
-                       div( id = 'message_to_show_more',
-                            tags$hr(),
-                            tags$h3( "Click on the 'Show more details' button to display additional information on survey progress." ),
-                            actionButton("btn_show_more",
-                                         paste0(' Show more details'),
-                                         icon = icon('chevron-circle-down'),
-                                         style='padding-top:3px; padding-bottom:3px;padding-left:5px;padding-right:5px;font-size:120%;color:#881946;'
-                            ) 
-                       ),
+                                            #fluidRow(downloadButton("download_datatab_resp", "Download", class="button"), width = 800),
+                       fluidRow( column = 8, box(title = h2(strong("Data Breakdown by Location")),DT::dataTableOutput("datatab_resp") %>%
+                                  withSpinner(color = "#871946"),height = 450),
                        
-                       div( id = "show_more_detail" ) ,
+                       #fluidRow(downloadButton("download_datatab_resp1", "Download", class="button"), width = 800),
+                       column = 4, box(title = h2(strong("Enumerators Achivement")),DT::dataTableOutput("datatab_resp1") %>% 
+                                  withSpinner(color = "#871946"),height = 450)),
                        
-                       shinyjs::hidden( div( id = "load_more_message",
-                                             tags$hr(),
-                                             tags$h1("Loading...", align = "center")  )
-                       )
+                       fluidRow(HTML("<h2>Data Collection Geolocations</h2>")),
+                       fluidRow(title = h1(strong("Activity Map")),
+                                leafletOutput("mapleaflet", height = "550px") %>% 
+                                  withSpinner(color = "#871946")),
+                       fluidRow(HTML("<h2>Number of Respondents against Targets in Rural or Urban Areas </h2>")),
+                       
+                       fluidRow(plotOutput("achieved_plot1",height = 700), height=700, width = "80%"),
+                       fluidRow(HTML("<h2>Number of Respondents against Targets by their Gender </h2>")),
+                       fluidRow(plotOutput("achieved_plot2",height = 700), height=700, width = "80%")
+                      
                        
                     
                        
@@ -148,56 +163,62 @@ function(input, output, session){
       tabItem(tabName = "KeySurveyQuestions",
              
               fluidRow(HTML(KeySurveyQuestionsIntro)),
-              fluidRow(column = 6, box(plotOutput("plot2",height = 310), height=330),column = 6, box(plotOutput("plot21",height = 310),height=330)),
-              fluidRow(box(plotOutput("plot1", height = 400),height=450, width = "100%")),
-              
-              fluidRow(box(plotOutput("plot22"), height=450, width = "100%")),
-             
-              fluidRow(box(plotOutput("plot3"), height = 450, width = "80%")),
-
-              div( id = 'message_to_show_more1',
-                   tags$hr(),
-                   tags$h3( "Click on the 'Show more details' button to display additional details on Key Questions." ),
-                   actionButton("btn_show_more1",
-                                paste0(' Show more details'),
-                                icon = icon('chevron-circle-down'),
-                                style='padding-top:3px; padding-bottom:3px;padding-left:5px;padding-right:5px;font-size:120%;color:#881946;'
-                   ) 
-              ),
-              
-              div( id = "show_more_detail1" ) ,
-              
-              shinyjs::hidden( div( id = "load_more_message1",
-                                    tags$hr(),
-                                    tags$h1("Loading...", align = "center")  )
-              )
+              fluidRow( column = 6, box(title = h2(strong("Bank Account Onwnership")),plotOutput("plot8") %>%
+                                          withSpinner(color = "#871946"),height = 550),
                    
-                       
+                        column = 6, box(title = h2(strong("Bank Accout Ownership by Gender")),plotOutput("plot8a") %>% 
+                                          withSpinner(color = "#871946"),height = 550)),
+              
+              fluidRow( column = 6, box(title = h2(strong("Mobile Money Account Onwnership")),plotOutput("plot9") %>%
+                                          withSpinner(color = "#871946"),height = 550),
+                        
+                        column = 6, box(title = h2(strong("Mobile Money Accout Ownership by Gender")),plotOutput("plot9a") %>% 
+                                          withSpinner(color = "#871946"),height = 550)),
+          
+              
+              
+              fluidRow(box(title = h2(strong("Saving Frequency")),plotOutput("plot6_6") %>% 
+                    withSpinner(color = "#871946"),height = 600, width = "100%")),
+              
+              fluidRow(box(title = h2(strong("Saving Frequency by Gender")),plotOutput("plot6_6a") %>% 
+                             withSpinner(color = "#871946"),height = 600, width = "100%")),
+              
+              fluidRow( column = 6, box(title = h2(strong("Participation in Informal Savings or Investment Groups")),plotOutput("plotC84") %>%
+                                          withSpinner(color = "#871946"),height = 550),
+                        
+                        column = 6, box(title = h2(strong("Participation in Informal Savings or Investment Groups by Gender")),plotOutput("plotC84_B2") %>% 
+                                          withSpinner(color = "#871946"),height = 550))
+       
       ),
   
   tabItem(tabName = "DataQualityControl",
           
           fluidRow(box(HTML(Introduction), width = "100%")),
-          div( id = 'message_to_show_more3',
-               tags$hr(),
-               tags$h3( "Click on 'Show Metrics' button to view Data Quality Control Metrics"),
-               actionButton("btn_show_more3",
-                            paste0('Show Metrics'),
-                            icon = icon('chevron-circle-down'),
-                            style='padding-top:3px; padding-bottom:3px;padding-left:5px;padding-right:5px;font-size:120%;color:#881946;'
-               ) 
+          fluidRow(HTML("<h2>Data Quality Control Summaries</h2><br>")),
+          fluidRow(infoBoxOutput("callbacks", width = 6) %>% withSpinner(color = "#871946"),
+                   infoBoxOutput("QuestionsQCLogs", width = 6) %>% withSpinner(color = "#871946")),
+          fluidRow(infoBoxOutput("EnumeratorsQCLogs", width = 6) %>% withSpinner(color = "#871946"),
+                   infoBoxOutput("QCLogsResoved", width = 6)) ,
+          fluidRow(HTML("<h2>Data Quality Control Metrics by Region</h2><br>")),       
+          fluidRow(title = h1(strong("Data Quality SUmmary")),DT::dataTableOutput("QCSummary") %>%
+                     withSpinner(color = "#871946"),height = 800, width=100),
+          fluidRow(HTML("<h2>Reported Data Quality Issues by Enumerator</h2><br>")),
+          fluidRow(title = h1(strong("Data Quality SUmmary")),DT::dataTableOutput("QCSummaryEnum") %>%
+                     withSpinner(color = "#871946"),height = 800, width=100),
+          fluidRow(HTML("<br><p>The next part indicates the confidence metrics. 
+                        A value greater than 10% would indicate that the survey is not going on well.</p><br><br>")),
+          
+          fluidRow(box(title = h2(strong("Response Error Rate")),gaugeOutput("plotErrorSub",width = "100%", height = "500px") %>%
+                                      withSpinner(color = "#871946"),height = 600, width = "100%")),
+                    
+                    fluidRow(box(title = h2(strong("Error Rate based on Questions")),gaugeOutput("plotErorQues",width = "100%", height = "500px") %>% 
+                                      withSpinner(color = "#871946"),height = 600, width = "100%"), tags$style(".html-widget.gauge svg {
+                                        height: 550px;
+                                        width: 100%;
+                                        }"))
+          
+ 
           ),
-          
-          div( id = "show_more_detail3" ) ,
-          
-          shinyjs::hidden( div( id = "load_more_message3",
-                                tags$hr(),
-                                tags$h1("Loading...", align = "center")  )
-          )
-          
-          ),
-  
-  
       
       tabItem(tabName = "Dataset",
                        
@@ -261,7 +282,23 @@ function(input, output, session){
       fill = TRUE,color = "blue", width = 3
     )
   })
+
   
+  output$plotErrorSub <- renderGauge({
+    plotErrorSub()
+  })
+  
+  plotErrorSub <- function(){
+    ErrorSubmissions
+  }
+  
+  output$plotErorQues <- renderGauge({
+    plotErorQues()
+  })
+  
+  plotErorQues <- function(){
+    ErrorQuesions
+  }
   
   
   output$plot1 <- renderPlot({
@@ -295,114 +332,75 @@ function(input, output, session){
     draw_plot2
   }
   
-  
-  
-  observeEvent(input$btn_show_more1,
-               {
                  
-                 ## disable the buttone ---
-                 shinyjs::disable("btn_show_more1")
-                 ## --- hide message to show more -----
-                 shinyjs::hide(id = 'message_to_show_more1')
-                 ## --- show loading message ---
-                 shinyjs::show( id = "load_more_message1" )
-                 
-                 # 4. Treemap key export commodity and services ------------------------------------
-                 withProgress(message = 'Loading...', value = (i_prog-1)/tot_step, {
-                   # Increment the progress bar, and update the detail text.
-                   incProgress( i_prog/tot_step, detail = NULL)
-                   ##Sys.sleep(0.1)
-                   
-                 })
-                 i_prog <- i_prog + 1
-                 
-                 
-                 output$plot8 <- renderPlot({
-                   plot8()
-                 })
-                 
-                 plot8 <- function(){
-                   draw_plot8
-                 }
-                 
-                 output$plot8a <- renderPlot({
-                   plot8a()
-                 })
-                 
-                 plot8a <- function(){
-                   draw_plot8a
-                 }
-                 
-                 
-                 output$plot9 <- renderPlot({
-                   plot9()
-                 })
-                 
-                 plot9 <- function(){
-                   draw_plot9
-                 }
-                 
-                 output$plot9a <- renderPlot({
-                   plot9a()
-                 })
-                 
-                 plot9a <- function(){
-                   draw_plot9a
-                 }
-                 
-                 output$plot6_6 <- renderPlot({
-                   plot6_6()
-                 })
-                 
-                 plot6_6 <- function(){
-                   draw_plot6_6
-                 }
-                 
-                 output$plot6_6a <- renderPlot({
-                   plot6_6a()
-                 })
-                 
-                 plot6_6a <- function(){
-                   draw_plot6_6a
-                 }
-                 
-                 output$plotC84 <- renderPlot({
-                   plotC84()
-                 })
-                 
-                 plotC84 <- function(){
-                   draw_plotC84
-                 }
-                 
-                 output$plotC84_B2 <- renderPlot({
-                   plotC84_B2()
-                 })
-                 
-                 plotC84_B2 <- function(){
-                   draw_plot_C84_B2
-                 }
-                 
-                 
-                 
-                 insertUI(
-                   selector = '#show_more_detail1',
-                   ui = div( id = 'conents_for_more_detail1',
+ output$plot8 <- renderPlot({
+   plot8()
+ })
+ 
+ plot8 <- function(){
+   draw_plot8
+ }
+ 
+ output$plot8a <- renderPlot({
+   plot8a()
+ })
+ 
+ plot8a <- function(){
+   draw_plot8a
+ }
+ 
+ 
+ output$plot9 <- renderPlot({
+   plot9()
+ })
+ 
+ plot9 <- function(){
+   draw_plot9
+ }
+ 
+ output$plot9a <- renderPlot({
+   plot9a()
+ })
+ 
+ plot9a <- function(){
+   draw_plot9a
+ }
+ 
+ output$plot6_6 <- renderPlot({
+   plot6_6()
+ })
+ 
+ plot6_6 <- function(){
+   draw_plot6_6
+ }
+ 
+ output$plot6_6a <- renderPlot({
+   plot6_6a()
+ })
+ 
+ plot6_6a <- function(){
+   draw_plot6_6a
+ }
+ 
+ output$plotC84 <- renderPlot({
+   plotC84()
+ })
+ 
+ plotC84 <- function(){
+   draw_plotC84
+ }
+ 
+ output$plotC84_B2 <- renderPlot({
+   plotC84_B2()
+ })
+ 
+ plotC84_B2 <- function(){
+   draw_plot_C84_B2
+ }
+ 
+
                              
-                             fluidRow(plotOutput("plot8")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
-                             fluidRow(plotOutput("plot8a")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
-                             fluidRow(plotOutput("plot9")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
-                             fluidRow(plotOutput("plot9a")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
-                             fluidRow(plotOutput("plot6_6")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
-                             fluidRow(plotOutput("plot6_6a")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
-                             fluidRow(plotOutput("plotC84")%>% withSpinner(color = "#871946"), height=600, width = "100%"),
-                             fluidRow(plotOutput("plotC84_B2")%>% withSpinner(color = "#871946"), height=600, width = "100%")
-                             
-                             
-                   ))
-                 shinyjs::hide( id = "load_more_message1" )
-                 
-              
- } )
+                            
   
   
   
@@ -528,28 +526,6 @@ function(input, output, session){
     }
     
     
-  #removeUI( selector = '#main_wait_message' )
-  
-  observeEvent(input$btn_show_more,
-                {
-                  
-                  ## disable the buttone ---
-                  shinyjs::disable("btn_show_more")
-                  ## --- hide message to show more -----
-                  shinyjs::hide(id = 'message_to_show_more')
-                  ## --- show loading message ---
-                  shinyjs::show( id = "load_more_message" )
-                  
-                  # 4. Treemap key export commodity and services ------------------------------------
-                  withProgress(message = 'Loading...', value = (i_prog-1)/tot_step, {
-                    # Increment the progress bar, and update the detail text.
-                    incProgress( i_prog/tot_step, detail = NULL)
-                    ##Sys.sleep(0.1)
-                    
-                  })
-                  i_prog <- i_prog + 1
-    
-  #Trends
 
   output$trendp1  <-renderPlot({
     trendp1()
@@ -625,8 +601,7 @@ function(input, output, session){
                 scrollX = TRUE,
                 paging =TRUE,
                 fixedHeader = TRUE,
-                class = 'cell-border stripe'), rownames = FALSE)%>% formatStyle("Number",
-                background = styleColorBar(range(enum_tab_func()$Number),'lightgreen'))
+                class = 'cell-border stripe'), rownames = FALSE)
   })
   
   
@@ -638,8 +613,7 @@ function(input, output, session){
                 scrollX = TRUE,
                 paging =TRUE,
                 fixedHeader = TRUE,
-                class = 'cell-border stripe'),rownames = FALSE)%>%formatStyle("Number",
-                background = styleColorBar(range(respondent_tab_func()$Number),'lightgreen'))
+                class = 'cell-border stripe'),rownames = FALSE)
   })
   
   
@@ -694,49 +668,6 @@ function(input, output, session){
   })
   
   
-  
-  insertUI(
-    selector = '#show_more_detail',
-    ui = div( id = 'conents_for_more_detail',
-              
-              fluidRow(plotOutput("trendp1")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
-              fluidRow(plotOutput("trendp2")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
-              fluidRow(plotOutput("trendp3")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
-              
-              fluidRow(HTML("<h2>Number of Respondents against Targets</h2>")),
-              
-              fluidRow(plotOutput("achieved_plot")%>% withSpinner(color = "#871946"), height=450, width = "80%"),
-              
-              fluidRow(HTML("<h2>Data Collection Achievements</h2>")),
-              #fluidRow(downloadButton("download_datatab_resp", "Download", class="button"), width = 800),
-              fluidRow(title = h1(strong("Data Breakdown by Location")),DT::dataTableOutput("datatab_resp") %>%
-                         withSpinner(color = "#871946"),height = 800, width=100),
-              
-              #fluidRow(downloadButton("download_datatab_resp1", "Download", class="button"), width = 800),
-              fluidRow(title = h1(strong("Enumerators Achivement")),DT::dataTableOutput("datatab_resp1") %>% 
-                         withSpinner(color = "#871946"),height = 800, width=100),
-              
-              fluidRow(HTML("<h2>Data Collection Geolocations</h2>")),
-              fluidRow(title = h1(strong("Activity Map")),
-                       leafletOutput("mapleaflet", height = "550px") %>% 
-                         withSpinner(color = "#871946")),
-              fluidRow(HTML("<h2>Number of Respondents against Targets in Rural or Urban Areas </h2>")),
-              
-              fluidRow(plotOutput("achieved_plot1",height = 700), height=700, width = "80%"),
-              fluidRow(HTML("<h2>Number of Respondents against Targets by their Gender </h2>")),
-              fluidRow(plotOutput("achieved_plot2",height = 700), height=700, width = "80%")
-              
-              
-    ))
-  shinyjs::hide( id = "load_more_message" )
-  
-
-  })
-  
-  
-  
-  
-
   #######KPS
   
   output$plot7 <- renderPlot({
@@ -797,122 +728,99 @@ function(input, output, session){
     draw_plot15
   }
   
-  
-  
-  observeEvent(input$btn_show_more3,
-               {
-                 
-                 ## disable the buttone ---
-                 shinyjs::disable("btn_show_more3")
-                 ## --- hide message to show more -----
-                 shinyjs::hide(id = 'message_to_show_more3')
-                 ## --- show loading message ---
-                 shinyjs::show( id = "load_more_message3" )
-                 
-                 # 4. Treemap key export commodity and services ------------------------------------
-                 withProgress(message = 'Loading...', value = (i_prog-1)/tot_step, {
-                   # Increment the progress bar, and update the detail text.
-                   incProgress( i_prog/tot_step, detail = NULL)
-                   ##Sys.sleep(0.1)
-                   
-                 })
-                 i_prog <- i_prog + 1
+
                  
                  
                  
-                 draw_callbacks <- function(){
-                   formatC(sum(QCSummary$Callbacks),format = "f", digits = 0, big.mark = ",")
-                 }
-                 
-                 
-                 output$callbacks<- renderInfoBox({
-                   infoBox(
-                     "Callbacks",draw_callbacks() , icon = icon("phone", lib = "font-awesome"),
-                     fill = TRUE,color = "blue", width = 3
-                   )
-                 })
-                 
-                 
-                 
-                 draw_QuestionsQC <- function(){
-                    formatC(sum(QCSummary$`Questions Triggering QC Logs`),format = "f", digits = 0, big.mark = ",")
-                 }
-                 
-                 output$QuestionsQCLogs<- renderInfoBox({
-                   infoBox(
-                     "Questions Triggering QC Logs",draw_QuestionsQC(), icon = icon("times", lib = "font-awesome"),
-                     fill = TRUE,color = "blue",width = 3
-                   )
-                 })
-                 
-                 
-                 
-                 draw_EnumQC <- function(){
-                   formatC(sum(QCSummary$`Enumerators with Most QC Logs`),format = "f", digits = 0, big.mark = ",")
-                 }
-                 
-                 
-                 output$EnumeratorsQCLogs<- renderInfoBox({
-                   infoBox(
-                     str_wrap("Enumerators with Most QC Logs"),draw_EnumQC() , icon = icon("users", lib = "font-awesome"),
-                     fill = TRUE,color = "blue", width = 3
-                   )
-                 })
-                 
-           
-                 draw_ResovedQC <- function(){
-                   bank <- 1021
-                   formatC(sum(QCSummary$`QC Logs Resolved`),format = "f", digits = 0, big.mark = ",")
-                 }
-                 
-                 output$QCLogsResoved<- renderInfoBox({
-                   infoBox(
-                     "QC Logs Resolved", draw_ResovedQC(), icon = icon("check-circle", lib = "font-awesome"),
-                     fill = TRUE,color = "blue", width = 3
-                   )
-                 })
-      
-                 
-                 QCSummary_tab <- function(){
-                   QCSummary
-                 }
-                 
-                 
-                 
-                 output$QCSummary = DT::renderDataTable({
-                   datatable(QCSummary_tab(),extensions = c("Scroller"), 
-                             options = list(
-                               searching = TRUE,
-                               autoWidth = FALSE,
-                               scrollX = TRUE,
-                               paging =TRUE,
-                               fixedHeader = TRUE,
-                               class = 'cell-border stripe'),
-                             rownames = FALSE)%>%formatStyle(names(QCSummary_tab()[,2:4]),
-                               background = styleColorBar(range(QCSummary_tab()[,2:4]),'Red'))%>%formatStyle("QC Logs Resolved",
-                                background = styleColorBar(range(QCSummary_tab()[,5]),'Green'))
-                 })
-                 
-                 
-                 insertUI(
-                   selector = '#show_more_detail3',
-                   ui = div( id = 'conents_for_more_detail3',
-                      fluidRow(HTML("<h2>Data Quality Control Summaries</h2><br>")),
-                      fluidRow(infoBoxOutput("callbacks", width = 6) %>% withSpinner(color = "#871946"),
-                                      infoBoxOutput("QuestionsQCLogs", width = 6) %>% withSpinner(color = "#871946")),
-                               fluidRow(infoBoxOutput("EnumeratorsQCLogs", width = 6) %>% withSpinner(color = "#871946"),
-                                      infoBoxOutput("QCLogsResoved", width = 6)) ,
-                      fluidRow(HTML("<h2>Data Quality Control Metrics by Region</h2><br>")),       
-                       fluidRow(title = h1(strong("Data Quality SUmmary")),DT::dataTableOutput("QCSummary") %>%
-                                        withSpinner(color = "#871946"),height = 800, width=100),
-                             
-                         
-                   ))
-                 shinyjs::hide( id = "load_more_message3" )
-                 
-                 
-               })
-  
+ draw_callbacks <- function(){
+   formatC(sum(QCSummary$Callbacks),format = "f", digits = 0, big.mark = ",")
+ }
+ 
+ 
+ output$callbacks<- renderInfoBox({
+   infoBox(
+     "Callbacks",draw_callbacks() , icon = icon("phone", lib = "font-awesome"),
+     fill = TRUE,color = "blue", width = 3
+   )
+ })
+ 
+ 
+ 
+ draw_QuestionsQC <- function(){
+    formatC(sum(QCSummary$`Questions Triggering QC Logs`),format = "f", digits = 0, big.mark = ",")
+ }
+ 
+ output$QuestionsQCLogs<- renderInfoBox({
+   infoBox(
+     "Questions Triggering QC Logs",draw_QuestionsQC(), icon = icon("times", lib = "font-awesome"),
+     fill = TRUE,color = "blue",width = 3
+   )
+ })
+ 
+ 
+ 
+ draw_EnumQC <- function(){
+   formatC(sum(QCSummary$`Enumerators with Most QC Logs`),format = "f", digits = 0, big.mark = ",")
+ }
+ 
+ 
+ output$EnumeratorsQCLogs<- renderInfoBox({
+   infoBox(
+     str_wrap("Enumerators with Most QC Logs"),draw_EnumQC() , icon = icon("users", lib = "font-awesome"),
+     fill = TRUE,color = "blue", width = 3
+   )
+ })
+ 
+
+ draw_ResovedQC <- function(){
+   bank <- 1021
+   formatC(sum(QCSummary$`QC Logs Resolved`),format = "f", digits = 0, big.mark = ",")
+ }
+ 
+ output$QCLogsResoved<- renderInfoBox({
+   infoBox(
+     "QC Logs Resolved", draw_ResovedQC(), icon = icon("check-circle", lib = "font-awesome"),
+     fill = TRUE,color = "blue", width = 3
+   )
+ })
+
+ 
+ QCSummary_tab <- function(){
+   QCSummary
+ }
+ 
+ 
+  output$QCSummary = DT::renderDataTable({
+   datatable(QCSummary_tab(),extensions = c("Scroller"), 
+             options = list(
+               searching = TRUE,
+               autoWidth = FALSE,
+               scrollX = TRUE,
+               paging =TRUE,
+               fixedHeader = TRUE,
+               class = 'cell-border stripe'),
+             rownames = FALSE)
+ })
+ 
+ QCSummary_Enum <- function(){
+   Enum_QC
+ }
+ 
+ 
+ 
+ output$QCSummaryEnum = DT::renderDataTable({
+   datatable(QCSummary_Enum(),extensions = c("Scroller"), 
+             options = list(
+               searching = TRUE,
+               autoWidth = FALSE,
+               scrollX = TRUE,
+               paging =TRUE,
+               fixedHeader = TRUE,
+               class = 'cell-border stripe'),
+             rownames = FALSE)
+ })
+
+
  
   output$selected_var <- renderText({
     paste("You have selected", input$countyNames, "County")

@@ -5,7 +5,8 @@ library(tidyr);library(dplyr);library(zoo);library(lubridate);library(DT)
 library(ggplot2);library(readxl);library(htmltools);library(leaflet);library(shinyhttr)
 library(raster);library(xml2);library(shinyjs);library(sodium);library(maptools)
 library(haven);library(shinymanager);library(labelled);library(rgdal);library(kableExtra)
-library(sf);library(reshape2);library(knitr);library(tinytex);library(haven);library(rmarkdown);library(plotly)
+library(sf);library(reshape2);library(knitr);library(tinytex);library(haven);library(rmarkdown);library(plotly);
+library(flexdashboard);library(c3)
 
 
 #The Order Matters
@@ -71,9 +72,11 @@ financial service providers understand, invest in, design for, and engage the un
 
 
 
-KeySurveyQuestionsIntro <- "<h2>Introduction</h2><br><p>The section captures details on Key performance Indicators, outcomes and objectives of the survey. We start of by assessing the outcome
-variables. We use various approaches to display insights. The approaches include bar, line, pie, tables, cards and more. Similar approach
- is applied for to the outcomes and objectives of the survey</p>"
+KeySurveyQuestionsIntro <- "<h2>Introduction</h2><br><p>This section displays
+the key performance indicators (the key questions in the survey). These are 
+the questions that captures the major survey outcomes and covariates. 
+The questions are split by demographics of interest. For this survey 
+the key questions</p>"
 
 
 
